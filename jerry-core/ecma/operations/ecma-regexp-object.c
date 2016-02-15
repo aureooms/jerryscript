@@ -79,7 +79,7 @@ re_parse_regexp_flags (ecma_string_t *flags_str_p, /**< Input string with flags 
   const lit_utf8_byte_t *flags_str_end_p = flags_start_p + flags_str_size;
 
   while (flags_str_curr_p < flags_str_end_p
-         && ecma_is_completion_value_empty (ret_value))
+         && ecma_is_value_empty (ret_value))
   {
     switch (*flags_str_curr_p++)
     {
@@ -275,7 +275,7 @@ ecma_op_create_regexp_object (ecma_string_t *pattern_p, /**< input pattern */
     ECMA_TRY_CATCH (empty, re_parse_regexp_flags (flags_str_p, &flags), ret_value);
     ECMA_FINALIZE (empty);
 
-    if (!ecma_is_completion_value_empty (ret_value))
+    if (!ecma_is_value_empty (ret_value))
     {
       return ret_value;
     }
@@ -1347,7 +1347,7 @@ ecma_regexp_exec_helper (ecma_value_t regexp_value, /**< RegExp object */
   lit_utf8_byte_t *sub_str_p = NULL;
   uint8_t *bc_start_p = (uint8_t *) (bc_p + 1);
 
-  while (ecma_is_completion_value_empty (ret_value))
+  while (ecma_is_value_empty (ret_value))
   {
     if (index < 0 || index > (int32_t) input_str_len)
     {
@@ -1410,7 +1410,7 @@ ecma_regexp_exec_helper (ecma_value_t regexp_value, /**< RegExp object */
   }
 
   /* 3. Fill the result array or return with 'undefiend' */
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     if (is_match)
     {
@@ -1421,7 +1421,7 @@ ecma_regexp_exec_helper (ecma_value_t regexp_value, /**< RegExp object */
       re_set_result_array_properties (result_array_obj_p, input_str_p, re_ctx.num_of_captures / 2, index);
       ecma_deref_ecma_string (input_str_p);
 
-      for (uint32_t i = 0; ecma_is_completion_value_empty (ret_value) && i < re_ctx.num_of_captures; i += 2)
+      for (uint32_t i = 0; ecma_is_value_empty (ret_value) && i < re_ctx.num_of_captures; i += 2)
       {
         ecma_string_t *index_str_p = ecma_new_ecma_string_from_uint32 (i / 2);
         ecma_value_t capture_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED);
@@ -1457,7 +1457,7 @@ ecma_regexp_exec_helper (ecma_value_t regexp_value, /**< RegExp object */
         ecma_deref_ecma_string (index_str_p);
       }
 
-      if (ecma_is_completion_value_empty (ret_value))
+      if (ecma_is_value_empty (ret_value))
       {
         ret_value = result_array;
       }

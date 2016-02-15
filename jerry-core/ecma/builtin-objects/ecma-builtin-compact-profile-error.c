@@ -48,7 +48,7 @@
  *
  * @return completion-value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_compact_profile_error_dispatch_call (const ecma_value_t *arguments_list_p, /**< arguments list */
                                                   ecma_length_t arguments_list_len) /**< number of arguments */
 {
@@ -62,7 +62,7 @@ ecma_builtin_compact_profile_error_dispatch_call (const ecma_value_t *arguments_
  *
  * @return completion-value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_compact_profile_error_dispatch_construct (const ecma_value_t *arguments_list_p, /**< arguments list */
                                                        ecma_length_t arguments_list_len) /**< number of arguments */
 {

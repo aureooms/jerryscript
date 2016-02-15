@@ -52,12 +52,12 @@
  *          ECMA-262 v5, 15.11.4.4
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_error_prototype_object_to_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 2.
   if (!ecma_is_value_object (this_arg))
@@ -73,13 +73,13 @@ ecma_builtin_error_prototype_object_to_string (ecma_value_t this_arg) /**< this 
                     ecma_op_object_get (obj_p, name_magic_string_p),
                     ret_value);
 
-    ecma_completion_value_t name_to_str_completion;
+    ecma_value_t name_to_str_completion;
 
     if (ecma_is_value_undefined (name_get_ret_value))
     {
       ecma_string_t *error_magic_string_p = ecma_get_magic_string (LIT_MAGIC_STRING_ERROR_UL);
 
-      name_to_str_completion = ecma_make_normal_completion_value (ecma_make_string_value (error_magic_string_p));
+      name_to_str_completion = ecma_make_string_value (error_magic_string_p);
     }
     else
     {
@@ -98,13 +98,13 @@ ecma_builtin_error_prototype_object_to_string (ecma_value_t this_arg) /**< this 
                       ecma_op_object_get (obj_p, message_magic_string_p),
                       ret_value);
 
-      ecma_completion_value_t msg_to_str_completion;
+      ecma_value_t msg_to_str_completion;
 
       if (ecma_is_value_undefined (msg_get_ret_value))
       {
         ecma_string_t *empty_magic_string_p = ecma_get_magic_string (LIT_MAGIC_STRING__EMPTY);
 
-        msg_to_str_completion = ecma_make_normal_completion_value (ecma_make_string_value (empty_magic_string_p));
+        msg_to_str_completion = ecma_make_string_value (empty_magic_string_p);
       }
       else
       {
@@ -117,8 +117,8 @@ ecma_builtin_error_prototype_object_to_string (ecma_value_t this_arg) /**< this 
       }
       else
       {
-        ecma_string_t *name_string_p = ecma_get_string_from_completion_value (name_to_str_completion);
-        ecma_string_t *msg_string_p = ecma_get_string_from_completion_value (msg_to_str_completion);
+        ecma_string_t *name_string_p = ecma_get_string_from_value (name_to_str_completion);
+        ecma_string_t *msg_string_p = ecma_get_string_from_value (msg_to_str_completion);
 
         ecma_string_t *ret_str_p;
 
@@ -173,17 +173,17 @@ ecma_builtin_error_prototype_object_to_string (ecma_value_t this_arg) /**< this 
           MEM_FINALIZE_LOCAL_ARRAY (ret_str_buffer);
         }
 
-        ret_value = ecma_make_normal_completion_value (ecma_make_string_value (ret_str_p));
+        ret_value = ecma_make_string_value (ret_str_p);
       }
 
-      ecma_free_completion_value (msg_to_str_completion);
+      ecma_free_value (msg_to_str_completion);
 
       ECMA_FINALIZE (msg_get_ret_value);
 
       ecma_deref_ecma_string (message_magic_string_p);
     }
 
-    ecma_free_completion_value (name_to_str_completion);
+    ecma_free_value (name_to_str_completion);
 
     ECMA_FINALIZE (name_get_ret_value);
 

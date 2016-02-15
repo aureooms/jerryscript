@@ -55,13 +55,13 @@
  *          ECMA-262 v5, 15.8.2.1
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_abs (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -69,7 +69,7 @@ ecma_builtin_math_object_abs (ecma_value_t this_arg __attr_unused___, /**< 'this
 
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (fabs (arg_num));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
 
@@ -83,20 +83,20 @@ ecma_builtin_math_object_abs (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.2
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_acos (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (acos (arg_num));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -109,20 +109,20 @@ ecma_builtin_math_object_acos (ecma_value_t this_arg __attr_unused___, /**< 'thi
  *          ECMA-262 v5, 15.8.2.3
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_asin (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (asin (arg_num));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -135,20 +135,20 @@ ecma_builtin_math_object_asin (ecma_value_t this_arg __attr_unused___, /**< 'thi
  *          ECMA-262 v5, 15.8.2.4
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_atan (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (atan (arg_num));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -161,14 +161,14 @@ ecma_builtin_math_object_atan (ecma_value_t this_arg __attr_unused___, /**< 'thi
  *          ECMA-262 v5, 15.8.2.5
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_atan2 (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                 ecma_value_t arg1, /**< first routine's argument */
                                 ecma_value_t arg2) /**< second routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (x, arg1, ret_value);
   ECMA_OP_TO_NUMBER_TRY_CATCH (y, arg2, ret_value);
@@ -176,7 +176,7 @@ ecma_builtin_math_object_atan2 (ecma_value_t this_arg __attr_unused___, /**< 'th
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (atan2 (x, y));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (y);
   ECMA_OP_TO_NUMBER_FINALIZE (x);
@@ -190,19 +190,19 @@ ecma_builtin_math_object_atan2 (ecma_value_t this_arg __attr_unused___, /**< 'th
  *          ECMA-262 v5, 15.8.2.6
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_ceil (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (ceil (arg_num));
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -215,19 +215,19 @@ ecma_builtin_math_object_ceil (ecma_value_t this_arg __attr_unused___, /**< 'thi
  *          ECMA-262 v5, 15.8.2.7
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_cos (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (cos (arg_num));
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -240,13 +240,13 @@ ecma_builtin_math_object_cos (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.8
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_exp (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -254,7 +254,7 @@ ecma_builtin_math_object_exp (ecma_value_t this_arg __attr_unused___, /**< 'this
 
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (exp (arg_num));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
 
@@ -268,19 +268,19 @@ ecma_builtin_math_object_exp (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.9
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_floor (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                 ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (floor (arg_num));
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -293,13 +293,13 @@ ecma_builtin_math_object_floor (ecma_value_t this_arg __attr_unused___, /**< 'th
  *          ECMA-262 v5, 15.8.2.10
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_log (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -307,7 +307,7 @@ ecma_builtin_math_object_log (ecma_value_t this_arg __attr_unused___, /**< 'this
 
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (log (arg_num));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
 
@@ -321,21 +321,21 @@ ecma_builtin_math_object_log (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.11
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_max (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               const ecma_value_t args[], /**< arguments list */
                               ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_number_t ret_num = ecma_number_make_infinity (true);
 
   bool is_NaN = false;
 
   for (ecma_length_t arg_index = 0;
-       arg_index < args_number && ecma_is_completion_value_empty (ret_value);
+       arg_index < args_number && ecma_is_value_empty (ret_value);
        arg_index++)
   {
     ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, args[arg_index], ret_value);
@@ -386,11 +386,11 @@ ecma_builtin_math_object_max (ecma_value_t this_arg __attr_unused___, /**< 'this
     ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   }
 
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     ecma_number_t *num_p = ecma_alloc_number ();
     *num_p = ret_num;
-    ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+    ret_value = ecma_make_number_value (num_p);
   }
 
   return ret_value;
@@ -403,21 +403,21 @@ ecma_builtin_math_object_max (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.12
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_min (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               const ecma_value_t args[], /**< arguments list */
                               ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_number_t ret_num = ecma_number_make_infinity (false);
 
   bool is_NaN = false;
 
   for (ecma_length_t arg_index = 0;
-       arg_index < args_number && ecma_is_completion_value_empty (ret_value);
+       arg_index < args_number && ecma_is_value_empty (ret_value);
        arg_index++)
   {
     ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, args[arg_index], ret_value);
@@ -468,11 +468,11 @@ ecma_builtin_math_object_min (ecma_value_t this_arg __attr_unused___, /**< 'this
     ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   }
 
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     ecma_number_t *num_p = ecma_alloc_number ();
     *num_p = ret_num;
-    ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+    ret_value = ecma_make_number_value (num_p);
   }
 
   return ret_value;
@@ -485,21 +485,21 @@ ecma_builtin_math_object_min (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.13
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_pow (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg1, /**< first routine's argument */
                               ecma_value_t arg2) /**< second routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (x, arg1, ret_value);
   ECMA_OP_TO_NUMBER_TRY_CATCH (y, arg2, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (pow (x, y));
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (y);
   ECMA_OP_TO_NUMBER_FINALIZE (x);
@@ -514,9 +514,9 @@ ecma_builtin_math_object_pow (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.14
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_random (ecma_value_t this_arg __attr_unused___) /**< 'this' argument */
 {
   uint32_t rnd = 1;
@@ -543,7 +543,7 @@ ecma_builtin_math_object_random (ecma_value_t this_arg __attr_unused___) /**< 't
   ecma_number_t *rand_p = ecma_alloc_number ();
   *rand_p = rand;
 
-  return ecma_make_normal_completion_value (ecma_make_number_value (rand_p));
+  return ecma_make_number_value (rand_p);
 } /* ecma_builtin_math_object_random */
 
 /**
@@ -553,13 +553,13 @@ ecma_builtin_math_object_random (ecma_value_t this_arg __attr_unused___) /**< 't
  *          ECMA-262 v5, 15.8.2.15
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_round (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                 ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -593,7 +593,7 @@ ecma_builtin_math_object_round (ecma_value_t this_arg __attr_unused___, /**< 'th
     }
   }
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
 
@@ -607,19 +607,19 @@ ecma_builtin_math_object_round (ecma_value_t this_arg __attr_unused___, /**< 'th
  *          ECMA-262 v5, 15.8.2.16
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_sin (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (sin (arg_num));
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -632,19 +632,19 @@ ecma_builtin_math_object_sin (ecma_value_t this_arg __attr_unused___, /**< 'this
  *          ECMA-262 v5, 15.8.2.17
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_sqrt (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (sqrt (arg_num));
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;
@@ -657,20 +657,20 @@ ecma_builtin_math_object_sqrt (ecma_value_t this_arg __attr_unused___, /**< 'thi
  *          ECMA-262 v5, 15.8.2.18
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_math_object_tan (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
   ecma_number_t *num_p = ecma_alloc_number ();
   *num_p = DOUBLE_TO_ECMA_NUMBER_T (tan (arg_num));
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (num_p));
+  ret_value = ecma_make_number_value (num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (arg_num);
   return ret_value;

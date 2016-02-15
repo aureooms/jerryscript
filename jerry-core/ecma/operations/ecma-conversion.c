@@ -617,7 +617,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
 
     if (!ecma_is_completion_value_throw (ret_value))
     {
-      JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+      JERRY_ASSERT (ecma_is_value_empty (ret_value));
 
       // 4.
       ecma_string_t *configurable_magic_string_p = ecma_get_magic_string (LIT_MAGIC_STRING_CONFIGURABLE);
@@ -652,7 +652,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
 
     if (!ecma_is_completion_value_throw (ret_value))
     {
-      JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+      JERRY_ASSERT (ecma_is_value_empty (ret_value));
 
       // 5.
       ecma_string_t *value_magic_string_p = ecma_get_magic_string (LIT_MAGIC_STRING_VALUE);
@@ -674,7 +674,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
 
     if (!ecma_is_completion_value_throw (ret_value))
     {
-      JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+      JERRY_ASSERT (ecma_is_value_empty (ret_value));
 
       // 6.
       ecma_string_t *writable_magic_string_p = ecma_get_magic_string (LIT_MAGIC_STRING_WRITABLE);
@@ -709,7 +709,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
 
     if (!ecma_is_completion_value_throw (ret_value))
     {
-      JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+      JERRY_ASSERT (ecma_is_value_empty (ret_value));
 
       // 7.
       ecma_string_t *get_magic_string_p = ecma_get_magic_string (LIT_MAGIC_STRING_GET);
@@ -752,7 +752,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
 
     if (!ecma_is_completion_value_throw (ret_value))
     {
-      JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+      JERRY_ASSERT (ecma_is_value_empty (ret_value));
 
       // 8.
 
@@ -796,7 +796,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
 
     if (!ecma_is_completion_value_throw (ret_value))
     {
-      JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+      JERRY_ASSERT (ecma_is_value_empty (ret_value));
 
       // 9.
       if (prop_desc.is_get_defined
@@ -812,7 +812,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
 
     if (!ecma_is_completion_value_throw (ret_value))
     {
-      JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+      JERRY_ASSERT (ecma_is_value_empty (ret_value));
     }
     else
     {

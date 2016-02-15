@@ -255,14 +255,14 @@ ecma_op_create_arguments_object (ecma_object_t *func_obj_p, /**< callee function
     ecma_completion_value_t completion = ecma_op_create_mutable_binding (lex_env_p,
                                                                          arguments_string_p,
                                                                          false);
-    JERRY_ASSERT (ecma_is_completion_value_empty (completion));
+    JERRY_ASSERT (ecma_is_value_empty (completion));
 
     completion = ecma_op_set_mutable_binding (lex_env_p,
                                               arguments_string_p,
                                               ecma_make_object_value (obj_p),
                                               false);
 
-    JERRY_ASSERT (ecma_is_completion_value_empty (completion));
+    JERRY_ASSERT (ecma_is_value_empty (completion));
   }
 
   ecma_deref_ecma_string (arguments_string_p);
@@ -457,7 +457,7 @@ ecma_op_arguments_object_define_own_property (ecma_object_t *obj_p, /**< the obj
                                                   arg_name_p,
                                                   property_desc_p->value,
                                                   true);
-        JERRY_ASSERT (ecma_is_completion_value_empty (completion));
+        JERRY_ASSERT (ecma_is_value_empty (completion));
       }
 
       // ii.

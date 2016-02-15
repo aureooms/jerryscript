@@ -876,9 +876,9 @@ ecma_date_timezone_offset (ecma_number_t time) /**< time value */
  *         - All Date.prototype.set *routine except Date.prototype.setTime.
  *
  * @return completion value containing the new internal time value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_date_set_internal_property (ecma_value_t this_arg, /**< this argument */
                                  ecma_number_t day, /**< day */
                                  ecma_number_t time, /**< time */
@@ -903,7 +903,7 @@ ecma_date_set_internal_property (ecma_value_t this_arg, /**< this argument */
                                                                prim_value_prop_p->u.internal_property.value);
   *prim_value_num_p = *value_p;
 
-  return ecma_make_normal_completion_value (ecma_make_number_value (value_p));
+  return ecma_make_number_value (value_p);
 } /* ecma_date_set_internal_property */
 
 /**
@@ -1054,9 +1054,9 @@ ecma_date_value_to_string_common (lit_utf8_byte_t *dest_p, /**< destination buff
  *        - The Date.prototype.toString routine.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_date_value_to_string (ecma_number_t datetime_number) /**< datetime */
 {
   /*
@@ -1092,7 +1092,7 @@ ecma_date_value_to_string (ecma_number_t datetime_number) /**< datetime */
   ecma_string_t *date_string_p = ecma_new_ecma_string_from_utf8 (character_buffer,
                                                                  result_string_length);
 
-  return ecma_make_normal_completion_value (ecma_make_string_value (date_string_p));
+  return ecma_make_string_value (date_string_p);
 } /* ecma_date_value_to_string */
 
 /**
@@ -1102,9 +1102,9 @@ ecma_date_value_to_string (ecma_number_t datetime_number) /**< datetime */
  *        - The Date.prototype.toUTCString routine.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_date_value_to_utc_string (ecma_number_t datetime_number) /**< datetime */
 {
   /*
@@ -1133,7 +1133,7 @@ ecma_date_value_to_utc_string (ecma_number_t datetime_number) /**< datetime */
   ecma_string_t *date_string_p = ecma_new_ecma_string_from_utf8 (character_buffer,
                                                                  result_string_length);
 
-  return ecma_make_normal_completion_value (ecma_make_string_value (date_string_p));
+  return ecma_make_string_value (date_string_p);
 } /* ecma_date_value_to_utc_string */
 
 /**
@@ -1143,9 +1143,9 @@ ecma_date_value_to_utc_string (ecma_number_t datetime_number) /**< datetime */
  *        - The Date.prototype.toISOString routine.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_date_value_to_iso_string (ecma_number_t datetime_number) /**<datetime */
 {
   /*
@@ -1194,7 +1194,7 @@ ecma_date_value_to_iso_string (ecma_number_t datetime_number) /**<datetime */
   ecma_string_t *date_string_p = ecma_new_ecma_string_from_utf8 (character_buffer,
                                                                  result_string_length);
 
-  return ecma_make_normal_completion_value (ecma_make_string_value (date_string_p));
+  return ecma_make_string_value (date_string_p);
 } /* ecma_date_value_to_iso_string */
 
 /**
@@ -1204,9 +1204,9 @@ ecma_date_value_to_iso_string (ecma_number_t datetime_number) /**<datetime */
  *        - The Date.prototype.toDateString routine.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_date_value_to_date_string (ecma_number_t datetime_number) /**<datetime */
 {
   /*
@@ -1238,7 +1238,7 @@ ecma_date_value_to_date_string (ecma_number_t datetime_number) /**<datetime */
   ecma_string_t *date_string_p = ecma_new_ecma_string_from_utf8 (character_buffer,
                                                                  result_string_length);
 
-  return ecma_make_normal_completion_value (ecma_make_string_value (date_string_p));
+  return ecma_make_string_value (date_string_p);
 } /* ecma_date_value_to_date_string */
 
 /**
@@ -1248,9 +1248,9 @@ ecma_date_value_to_date_string (ecma_number_t datetime_number) /**<datetime */
  *        - The Date.prototype.toTimeString routine.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_date_value_to_time_string (ecma_number_t datetime_number) /**<datetime */
 {
   /*
@@ -1281,7 +1281,7 @@ ecma_date_value_to_time_string (ecma_number_t datetime_number) /**<datetime */
   ecma_string_t *time_string_p = ecma_new_ecma_string_from_utf8 (character_buffer,
                                                                  result_string_length);
 
-  return ecma_make_normal_completion_value (ecma_make_string_value (time_string_p));
+  return ecma_make_string_value (time_string_p);
 } /* ecma_date_value_to_time_string */
 
 /**
@@ -1293,12 +1293,12 @@ ecma_date_value_to_time_string (ecma_number_t datetime_number) /**<datetime */
  *        - The Date.prototype.toUTCString routine.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_date_get_primitive_value (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (this_arg)
       || ecma_object_get_class_name (ecma_get_object_from_value (this_arg)) != LIT_MAGIC_STRING_DATE_UL)
@@ -1315,7 +1315,7 @@ ecma_date_get_primitive_value (ecma_value_t this_arg) /**< this argument */
     ecma_number_t *prim_value_num_p = ecma_alloc_number ();
     *prim_value_num_p = *ECMA_GET_NON_NULL_POINTER (ecma_number_t,
                                                     prim_value_prop_p->u.internal_property.value);
-    ret_value = ecma_make_normal_completion_value (ecma_make_number_value (prim_value_num_p));
+    ret_value = ecma_make_number_value (prim_value_num_p);
   }
 
   return ret_value;

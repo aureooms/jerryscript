@@ -566,7 +566,7 @@ ecma_op_general_object_default_value (ecma_object_t *obj_p, /**< the object */
       return call_completion;
     }
 
-    if (!ecma_is_completion_value_empty (call_completion)
+    if (!ecma_is_value_empty (call_completion)
         && !ecma_is_value_object (ecma_get_completion_value_value (call_completion)))
     {
       return call_completion;

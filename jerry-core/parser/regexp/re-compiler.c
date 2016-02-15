@@ -402,7 +402,7 @@ re_parse_alternative (re_compiler_ctx_t *re_ctx_p, /**< RegExp compiler context 
   uint32_t alterantive_offset = re_get_bytecode_length (re_ctx_p->bytecode_ctx_p);
   bool should_loop = true;
 
-  while (ecma_is_completion_value_empty (ret_value) && should_loop)
+  while (ecma_is_value_empty (ret_value) && should_loop)
   {
     ECMA_TRY_CATCH (empty,
                     re_parse_next_token (re_ctx_p->parser_ctx_p,
@@ -420,7 +420,7 @@ re_parse_alternative (re_compiler_ctx_t *re_ctx_p, /**< RegExp compiler context 
 
         ret_value = re_parse_alternative (re_ctx_p, false);
 
-        if (ecma_is_completion_value_empty (ret_value))
+        if (ecma_is_value_empty (ret_value))
         {
           re_insert_into_group (re_ctx_p, new_atom_start_offset, idx, true);
         }
@@ -434,7 +434,7 @@ re_parse_alternative (re_compiler_ctx_t *re_ctx_p, /**< RegExp compiler context 
 
         ret_value = re_parse_alternative (re_ctx_p, false);
 
-        if (ecma_is_completion_value_empty (ret_value))
+        if (ecma_is_value_empty (ret_value))
         {
           re_insert_into_group (re_ctx_p, new_atom_start_offset, idx, false);
         }
@@ -507,7 +507,7 @@ re_parse_alternative (re_compiler_ctx_t *re_ctx_p, /**< RegExp compiler context 
 
         ret_value = re_parse_alternative (re_ctx_p, false);
 
-        if (ecma_is_completion_value_empty (ret_value))
+        if (ecma_is_value_empty (ret_value))
         {
           re_append_opcode (bc_ctx_p, RE_OP_MATCH);
 
@@ -524,7 +524,7 @@ re_parse_alternative (re_compiler_ctx_t *re_ctx_p, /**< RegExp compiler context 
 
         ret_value = re_parse_alternative (re_ctx_p, false);
 
-        if (ecma_is_completion_value_empty (ret_value))
+        if (ecma_is_value_empty (ret_value))
         {
           re_append_opcode (bc_ctx_p, RE_OP_MATCH);
 
@@ -695,7 +695,7 @@ re_compile_bytecode (re_compiled_code_t **out_bytecode_p, /**< out:pointer to by
 
   MEM_FINALIZE_LOCAL_ARRAY (pattern_start_p);
 
-  if (!ecma_is_completion_value_empty (ret_value))
+  if (!ecma_is_value_empty (ret_value))
   {
     /* Compilation failed, free bytecode. */
     mem_heap_free_block (bc_ctx.block_start_p);

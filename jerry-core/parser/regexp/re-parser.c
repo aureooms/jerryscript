@@ -239,7 +239,7 @@ re_parse_iterator (re_parser_ctx_t *parser_ctx_p, /**< RegExp parser context */
     }
   }
 
-  JERRY_ASSERT (ecma_is_completion_value_empty (ret_value));
+  JERRY_ASSERT (ecma_is_value_empty (ret_value));
 
   if (re_token_p->qmin > re_token_p->qmax)
   {

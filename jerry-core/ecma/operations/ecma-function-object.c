@@ -733,7 +733,7 @@ ecma_op_function_call (ecma_object_t *func_obj_p, /**< Function object */
     }
   }
 
-  JERRY_ASSERT (!ecma_is_completion_value_empty (ret_value));
+  JERRY_ASSERT (!ecma_is_value_empty (ret_value));
 
   return ret_value;
 } /* ecma_op_function_call */
@@ -964,7 +964,7 @@ ecma_op_function_declaration (ecma_object_t *lex_env_p, /**< lexical environment
                                                                          function_name_p,
                                                                          is_configurable_bindings);
 
-    JERRY_ASSERT (ecma_is_completion_value_empty (completion));
+    JERRY_ASSERT (ecma_is_value_empty (completion));
   }
   else if (ecma_is_lexical_environment_global (lex_env_p))
   {
@@ -1004,7 +1004,7 @@ ecma_op_function_declaration (ecma_object_t *lex_env_p, /**< lexical environment
     ecma_deref_object (glob_obj_p);
   }
 
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     // f.
     ret_value = ecma_op_set_mutable_binding (lex_env_p,

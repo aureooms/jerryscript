@@ -124,7 +124,7 @@ vm_var_decl (vm_frame_ctx_t *frame_ctx_p, /**< interpreter context */
                                                                          var_name_str_p,
                                                                          is_configurable_bindings);
 
-    JERRY_ASSERT (ecma_is_completion_value_empty (completion));
+    JERRY_ASSERT (ecma_is_value_empty (completion));
 
     /* Skipping SetMutableBinding as we have already checked that there were not
      * any binding with specified name in current lexical environment
@@ -417,7 +417,7 @@ opfunc_for_in (ecma_value_t left_value, /**< left value */
     ECMA_FINALIZE (obj_expr_value);
   }
 
-  JERRY_ASSERT (ecma_is_completion_value_empty (compl_val));
+  JERRY_ASSERT (ecma_is_value_empty (compl_val));
 
   return prop_names_p;
 } /* opfunc_for_in */

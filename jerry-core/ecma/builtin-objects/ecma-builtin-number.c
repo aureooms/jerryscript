@@ -49,20 +49,20 @@
  *
  * @return completion-value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_number_dispatch_call (const ecma_value_t *arguments_list_p, /**< arguments list */
                                    ecma_length_t arguments_list_len) /**< number of arguments */
 {
   JERRY_ASSERT (arguments_list_len == 0 || arguments_list_p != NULL);
 
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (arguments_list_len == 0)
   {
     ecma_number_t *zero_num_p = ecma_alloc_number ();
     *zero_num_p = ECMA_NUMBER_ZERO;
 
-    ret_value = ecma_make_normal_completion_value (ecma_make_number_value (zero_num_p));
+    ret_value = ecma_make_number_value (zero_num_p);
   }
   else
   {
@@ -77,7 +77,7 @@ ecma_builtin_number_dispatch_call (const ecma_value_t *arguments_list_p, /**< ar
  *
  * @return completion-value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_number_dispatch_construct (const ecma_value_t *arguments_list_p, /**< arguments list */
                                         ecma_length_t arguments_list_len) /**< number of arguments */
 {
@@ -88,7 +88,7 @@ ecma_builtin_number_dispatch_construct (const ecma_value_t *arguments_list_p, /*
     ecma_number_t *zero_num_p = ecma_alloc_number ();
     *zero_num_p = ECMA_NUMBER_ZERO;
 
-    ecma_completion_value_t completion = ecma_op_create_number_object (ecma_make_number_value (zero_num_p));
+    ecma_value_t completion = ecma_op_create_number_object (ecma_make_number_value (zero_num_p));
 
     ecma_dealloc_number (zero_num_p);
 

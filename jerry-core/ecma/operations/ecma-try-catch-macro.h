@@ -81,7 +81,7 @@
     ECMA_FINALIZE (to_number_value); \
   } \
   \
-  if (ecma_is_completion_value_empty (return_value)) \
+  if (ecma_is_value_empty (return_value)) \
   {
 
 /**

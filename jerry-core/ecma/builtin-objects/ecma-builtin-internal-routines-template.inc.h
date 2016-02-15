@@ -44,7 +44,7 @@
 #define ROUTINE_ARG_LIST_NON_FIXED ROUTINE_ARG_LIST_0, \
   const ecma_value_t *arguments_list_p, ecma_length_t arguments_list_len
 #define ROUTINE(name, c_function_name, args_number, length_prop_value) \
-  static ecma_completion_value_t c_function_name (ROUTINE_ARG_LIST_ ## args_number);
+  static ecma_value_t c_function_name (ROUTINE_ARG_LIST_ ## args_number);
 #include BUILTIN_INC_HEADER_NAME
 #undef ROUTINE_ARG_LIST_NON_FIXED
 #undef ROUTINE_ARG_LIST_3
@@ -395,9 +395,9 @@ LIST_LAZY_PROPERTY_NAMES_ROUTINE_NAME (BUILTIN_UNDERSCORED_ID) (ecma_object_t *o
  * Dispatcher of the built-in's routines
  *
  * @return completion-value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 DISPATCH_ROUTINE_ROUTINE_NAME (BUILTIN_UNDERSCORED_ID) (uint16_t builtin_routine_id, /**< built-in wide routine
                                                                                           identifier */
                                                         ecma_value_t this_arg_value, /**< 'this' argument

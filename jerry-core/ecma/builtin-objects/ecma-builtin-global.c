@@ -58,14 +58,14 @@
  * where hh and ll are values of code point's high and low bytes, correspondingly.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_print (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                   const ecma_value_t args[], /**< arguments list */
                                   ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /*
    * TODO:
@@ -73,7 +73,7 @@ ecma_builtin_global_object_print (ecma_value_t this_arg __attr_unused___, /**< t
    */
 
   for (ecma_length_t arg_index = 0;
-       ecma_is_completion_value_empty (ret_value) && arg_index < args_number;
+       ecma_is_value_empty (ret_value) && arg_index < args_number;
        arg_index++)
   {
     ECMA_TRY_CATCH (str_value,
@@ -133,9 +133,9 @@ ecma_builtin_global_object_print (ecma_value_t this_arg __attr_unused___, /**< t
 
   printf ("\n");
 
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
-    ret_value = ecma_make_normal_completion_value (ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED));
+    ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED);
   }
 
   return ret_value;
@@ -148,13 +148,13 @@ ecma_builtin_global_object_print (ecma_value_t this_arg __attr_unused___, /**< t
  *          ECMA-262 v5, 15.1.2.1
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_eval (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                  ecma_value_t x) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   bool is_direct_eval = vm_is_direct_eval_form_call ();
 
@@ -172,7 +172,7 @@ ecma_builtin_global_object_eval (ecma_value_t this_arg __attr_unused___, /**< th
   if (!ecma_is_value_string (x))
   {
     /* step 1 */
-    ret_value = ecma_make_normal_completion_value (ecma_copy_value (x, true));
+    ret_value = ecma_copy_value (x, true);
   }
   else
   {
@@ -192,14 +192,14 @@ ecma_builtin_global_object_eval (ecma_value_t this_arg __attr_unused___, /**< th
  *          ECMA-262 v5, 15.1.2.2
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                       ecma_value_t string, /**< routine's first argument */
                                       ecma_value_t radix) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (string_var, ecma_op_to_string (string), ret_value);
@@ -273,7 +273,7 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
         {
           ecma_number_t *ret_num_p = ecma_alloc_number ();
           *ret_num_p = ecma_number_make_nan ();
-          ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+          ret_value = ecma_make_number_value (ret_num_p);
         }
         /* 8.b */
         else if (rad != 16)
@@ -287,7 +287,7 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
         rad = 10;
       }
 
-      if (ecma_is_completion_value_empty (ret_value))
+      if (ecma_is_value_empty (ret_value))
       {
         /* 10. */
         if (strip_prefix)
@@ -341,11 +341,11 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
         {
           ecma_number_t *ret_num_p = ecma_alloc_number ();
           *ret_num_p = ecma_number_make_nan ();
-          ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+          ret_value = ecma_make_number_value (ret_num_p);
         }
       }
 
-      if (ecma_is_completion_value_empty (ret_value))
+      if (ecma_is_value_empty (ret_value))
       {
         ecma_number_t *value_p = ecma_alloc_number ();
         *value_p = 0;
@@ -386,7 +386,7 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
           *value_p *= (ecma_number_t) sign;
         }
 
-        ret_value = ecma_make_normal_completion_value (ecma_make_number_value (value_p));
+        ret_value = ecma_make_number_value (value_p);
       }
 
       ECMA_OP_TO_NUMBER_FINALIZE (radix_num);
@@ -395,7 +395,7 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
     {
       ecma_number_t *ret_num_p = ecma_alloc_number ();
       *ret_num_p = ecma_number_make_nan ();
-      ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+      ret_value = ecma_make_number_value (ret_num_p);
     }
 
     MEM_FINALIZE_LOCAL_ARRAY (string_buff);
@@ -404,7 +404,7 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
   {
     ecma_number_t *ret_num_p = ecma_alloc_number ();
     *ret_num_p = ecma_number_make_nan ();
-    ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+    ret_value = ecma_make_number_value (ret_num_p);
   }
 
   ECMA_FINALIZE (string_var);
@@ -418,13 +418,13 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
  *          ECMA-262 v5, 15.1.2.3
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                         ecma_value_t string) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (string_var, ecma_op_to_string (string), ret_value);
@@ -494,7 +494,7 @@ ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, 
       {
         /* String matched Infinity. */
         *ret_num_p = ecma_number_make_infinity (sign);
-        ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+        ret_value = ecma_make_number_value (ret_num_p);
         break;
       }
     }
@@ -502,7 +502,7 @@ ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, 
     /* Reset to starting position. */
     str_curr_p = start_p;
 
-    if (ecma_is_completion_value_empty (ret_value) && str_curr_p < str_end_p)
+    if (ecma_is_value_empty (ret_value) && str_curr_p < str_end_p)
     {
       current = *str_curr_p;
 
@@ -606,7 +606,7 @@ ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, 
       if (start_p == end_p)
       {
         *ret_num_p = ecma_number_make_nan ();
-        ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+        ret_value = ecma_make_number_value (ret_num_p);
       }
       else
       {
@@ -619,14 +619,14 @@ ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, 
           *ret_num_p *= -1;
         }
 
-        ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+        ret_value = ecma_make_number_value (ret_num_p);
       }
     }
     /* String ended after sign character, or was empty after removing leading whitespace. */
-    else if (ecma_is_completion_value_empty (ret_value))
+    else if (ecma_is_value_empty (ret_value))
     {
       *ret_num_p = ecma_number_make_nan ();
-      ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+      ret_value = ecma_make_number_value (ret_num_p);
     }
     MEM_FINALIZE_LOCAL_ARRAY (string_buff);
   }
@@ -635,7 +635,7 @@ ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, 
   {
     ecma_number_t *ret_num_p = ecma_alloc_number ();
     *ret_num_p = ecma_number_make_nan ();
-    ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+    ret_value = ecma_make_number_value (ret_num_p);
   }
 
   ECMA_FINALIZE (string_var);
@@ -650,13 +650,13 @@ ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, 
  *          ECMA-262 v5, 15.1.2.4
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_is_nan (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                    ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -677,13 +677,13 @@ ecma_builtin_global_object_is_nan (ecma_value_t this_arg __attr_unused___, /**< 
  *          ECMA-262 v5, 15.1.2.5
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_is_finite (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                       ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -749,13 +749,13 @@ static const uint8_t unescaped_uri_component_set[16] =
  * Helper function to decode URI.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_decode_uri_helper (ecma_value_t uri __attr_unused___, /**< uri argument */
                                               const uint8_t *reserved_uri_bitset) /**< reserved characters bitset */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (string,
                   ecma_op_to_string (uri),
@@ -836,7 +836,7 @@ ecma_builtin_global_object_decode_uri_helper (ecma_value_t uri __attr_unused___,
     }
   }
 
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     MEM_DEFINE_LOCAL_ARRAY (output_start_p,
                             output_size,
@@ -950,14 +950,14 @@ ecma_builtin_global_object_decode_uri_helper (ecma_value_t uri __attr_unused___,
       }
     }
 
-    if (ecma_is_completion_value_empty (ret_value))
+    if (ecma_is_value_empty (ret_value))
     {
       JERRY_ASSERT (output_start_p + output_size == output_char_p);
 
       if (lit_is_cesu8_string_valid (output_start_p, output_size))
       {
         ecma_string_t *output_string_p = ecma_new_ecma_string_from_utf8 (output_start_p, output_size);
-        ret_value = ecma_make_normal_completion_value (ecma_make_string_value (output_string_p));
+        ret_value = ecma_make_string_value (output_string_p);
       }
       else
       {
@@ -981,9 +981,9 @@ ecma_builtin_global_object_decode_uri_helper (ecma_value_t uri __attr_unused___,
  *          ECMA-262 v5, 15.1.3.1
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_decode_uri (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                        ecma_value_t encoded_uri) /**< routine's first argument */
 {
@@ -997,9 +997,9 @@ ecma_builtin_global_object_decode_uri (ecma_value_t this_arg __attr_unused___, /
  *          ECMA-262 v5, 15.1.3.2
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_decode_uri_component (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                                  ecma_value_t encoded_uri_component) /**< routine's
                                                                                       *   first argument */
@@ -1027,13 +1027,13 @@ ecma_builtin_global_object_byte_to_hex (lit_utf8_byte_t *dest_p, /**< destinatio
  * Helper function to encode URI.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_encode_uri_helper (ecma_value_t uri, /**< uri argument */
                                               const uint8_t *unescaped_uri_bitset_p) /**< unescaped bitset */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (string,
                   ecma_op_to_string (uri),
@@ -1121,7 +1121,7 @@ ecma_builtin_global_object_encode_uri_helper (ecma_value_t uri, /**< uri argumen
     }
   }
 
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     MEM_DEFINE_LOCAL_ARRAY (output_start_p,
                             output_length,
@@ -1176,7 +1176,7 @@ ecma_builtin_global_object_encode_uri_helper (ecma_value_t uri, /**< uri argumen
 
     ecma_string_t *output_string_p = ecma_new_ecma_string_from_utf8 (output_start_p, output_length);
 
-    ret_value = ecma_make_normal_completion_value (ecma_make_string_value (output_string_p));
+    ret_value = ecma_make_string_value (output_string_p);
 
     MEM_FINALIZE_LOCAL_ARRAY (output_start_p);
   }
@@ -1194,9 +1194,9 @@ ecma_builtin_global_object_encode_uri_helper (ecma_value_t uri, /**< uri argumen
  *          ECMA-262 v5, 15.1.3.3
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_encode_uri (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                        ecma_value_t uri) /**< routine's first argument */
 {
@@ -1210,9 +1210,9 @@ ecma_builtin_global_object_encode_uri (ecma_value_t this_arg __attr_unused___, /
  *          ECMA-262 v5, 15.1.3.4
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_encode_uri_component (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                                  ecma_value_t uri_component) /**< routine's first argument */
 {
@@ -1250,13 +1250,13 @@ static const uint8_t ecma_escape_set[16] =
  *          ECMA-262 v5, B.2.1
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_escape (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                    ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (string,
                   ecma_op_to_string (arg),
@@ -1356,7 +1356,7 @@ ecma_builtin_global_object_escape (ecma_value_t this_arg __attr_unused___, /**< 
 
   ecma_string_t *output_string_p = ecma_new_ecma_string_from_utf8 (output_start_p, output_length);
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_string_value (output_string_p));
+  ret_value = ecma_make_string_value (output_string_p);
 
   MEM_FINALIZE_LOCAL_ARRAY (output_start_p);
 
@@ -1373,13 +1373,13 @@ ecma_builtin_global_object_escape (ecma_value_t this_arg __attr_unused___, /**< 
  *          ECMA-262 v5, B.2.2
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_global_object_unescape (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                      ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (string, ecma_op_to_string (arg), ret_value);
@@ -1455,7 +1455,7 @@ ecma_builtin_global_object_unescape (ecma_value_t this_arg __attr_unused___, /**
 
   lit_utf8_size_t output_length = (lit_utf8_size_t) (output_char_p - input_start_p);
   ecma_string_t *output_string_p = ecma_new_ecma_string_from_utf8 (input_start_p, output_length);
-  ret_value = ecma_make_normal_completion_value (ecma_make_string_value (output_string_p));
+  ret_value = ecma_make_string_value (output_string_p);
 
   MEM_FINALIZE_LOCAL_ARRAY (input_start_p);
 

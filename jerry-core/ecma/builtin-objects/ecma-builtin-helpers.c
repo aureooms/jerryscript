@@ -45,10 +45,10 @@
  *         - The Array.prototype.toString routine as fallback.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
 
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_helper_object_to_string (const ecma_value_t this_arg) /**< this argument */
 {
   lit_magic_string_id_t type_string;
@@ -63,7 +63,7 @@ ecma_builtin_helper_object_to_string (const ecma_value_t this_arg) /**< this arg
   }
   else
   {
-    ecma_completion_value_t obj_this = ecma_op_to_object (this_arg);
+    ecma_value_t obj_this = ecma_op_to_object (this_arg);
 
     if (!ecma_is_completion_value_normal (obj_this))
     {
@@ -72,11 +72,11 @@ ecma_builtin_helper_object_to_string (const ecma_value_t this_arg) /**< this arg
 
     JERRY_ASSERT (ecma_is_value_object (ecma_get_completion_value_value (obj_this)));
 
-    ecma_object_t *obj_p = ecma_get_object_from_completion_value (obj_this);
+    ecma_object_t *obj_p = ecma_get_object_from_value (obj_this);
 
     type_string = ecma_object_get_class_name (obj_p);
 
-    ecma_free_completion_value (obj_this);
+    ecma_free_value (obj_this);
   }
 
   ecma_string_t *ret_string_p;
@@ -111,7 +111,7 @@ ecma_builtin_helper_object_to_string (const ecma_value_t this_arg) /**< this arg
 
   MEM_FINALIZE_LOCAL_ARRAY (str_buffer);
 
-  return ecma_make_normal_completion_value (ecma_make_string_value (ret_string_p));
+  return ecma_make_string_value (ret_string_p);
 } /* ecma_builtin_helper_object_to_string */
 
 /**
@@ -121,13 +121,13 @@ ecma_builtin_helper_object_to_string (const ecma_value_t this_arg) /**< this arg
  *          ECMA-262 v5, 15.4.4.3 steps 6-8 and 10.b-d
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_helper_get_to_locale_string_at_index (ecma_object_t *obj_p, /** < this object */
                                                    uint32_t index) /** < array index */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_string_t *index_string_p = ecma_new_ecma_string_from_uint32 (index);
 
   ECMA_TRY_CATCH (index_value,
@@ -137,7 +137,7 @@ ecma_builtin_helper_get_to_locale_string_at_index (ecma_object_t *obj_p, /** < t
   if (ecma_is_value_undefined (index_value) || ecma_is_value_null (index_value))
   {
     ecma_string_t *return_string_p = ecma_get_magic_string (LIT_MAGIC_STRING__EMPTY);
-    ret_value = ecma_make_normal_completion_value (ecma_make_string_value (return_string_p));
+    ret_value = ecma_make_string_value (return_string_p);
   }
   else
   {
@@ -193,17 +193,17 @@ ecma_builtin_helper_get_to_locale_string_at_index (ecma_object_t *obj_p, /** < t
  *          ECMA-262 v5, 15.2.3.14 steps 3-6
  *
  * @return completion value - Array of property names.
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_helper_object_get_properties (ecma_object_t *obj_p, /** < object */
                                            bool only_enumerable_properties) /** < list enumerable properties? */
 {
   JERRY_ASSERT (obj_p != NULL);
 
-  ecma_completion_value_t new_array = ecma_op_create_array_object (NULL, 0, false);
+  ecma_value_t new_array = ecma_op_create_array_object (NULL, 0, false);
   JERRY_ASSERT (ecma_is_completion_value_normal (new_array));
-  ecma_object_t *new_array_p = ecma_get_object_from_completion_value (new_array);
+  ecma_object_t *new_array_p = ecma_get_object_from_value (new_array);
 
   uint32_t index = 0;
 
@@ -219,13 +219,13 @@ ecma_builtin_helper_object_get_properties (ecma_object_t *obj_p, /** < object */
   {
     ecma_string_t *index_string_p = ecma_new_ecma_string_from_uint32 (index);
 
-    ecma_completion_value_t completion = ecma_builtin_helper_def_prop (new_array_p,
-                                                                       index_string_p,
-                                                                       *iter.current_value_p,
-                                                                       true, /* Writable */
-                                                                       true, /* Enumerable */
-                                                                       true, /* Configurable */
-                                                                       false); /* Failure handling */
+    ecma_value_t completion = ecma_builtin_helper_def_prop (new_array_p,
+                                                            index_string_p,
+                                                            *iter.current_value_p,
+                                                            true, /* Writable */
+                                                            true, /* Enumerable */
+                                                            true, /* Configurable */
+                                                            false); /* Failure handling */
 
     JERRY_ASSERT (ecma_is_completion_value_normal_true (completion));
 
@@ -324,14 +324,14 @@ ecma_builtin_helper_array_index_normalize (ecma_number_t index, /**< index */
  *         - The Array.prototype.concat routine.
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_helper_array_concat_value (ecma_object_t *obj_p, /**< array */
                                         uint32_t *length_p, /**< in-out: array's length */
                                         ecma_value_t value) /**< value to concat */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 5.b */
   if (ecma_is_value_object (value)
@@ -349,7 +349,7 @@ ecma_builtin_helper_array_concat_value (ecma_object_t *obj_p, /**< array */
 
     /* 5.b.iii */
     for (uint32_t array_index = 0;
-         array_index < arg_len && ecma_is_completion_value_empty (ret_value);
+         array_index < arg_len && ecma_is_value_empty (ret_value);
          array_index++)
     {
       ecma_string_t *array_index_string_p = ecma_new_ecma_string_from_uint32 (array_index);
@@ -368,13 +368,13 @@ ecma_builtin_helper_array_concat_value (ecma_object_t *obj_p, /**< array */
 
         /* 5.b.iii.3.b */
         /* This will always be a simple value since 'is_throw' is false, so no need to free. */
-        ecma_completion_value_t put_comp = ecma_builtin_helper_def_prop (obj_p,
-                                                                         new_array_index_string_p,
-                                                                         get_value,
-                                                                         true, /* Writable */
-                                                                         true, /* Enumerable */
-                                                                         true, /* Configurable */
-                                                                         false); /* Failure handling */
+        ecma_value_t put_comp = ecma_builtin_helper_def_prop (obj_p,
+                                                              new_array_index_string_p,
+                                                              get_value,
+                                                              true, /* Writable */
+                                                              true, /* Enumerable */
+                                                              true, /* Configurable */
+                                                              false); /* Failure handling */
 
         JERRY_ASSERT (ecma_is_completion_value_normal_true (put_comp));
 
@@ -397,20 +397,20 @@ ecma_builtin_helper_array_concat_value (ecma_object_t *obj_p, /**< array */
 
     /* 5.c.i */
     /* This will always be a simple value since 'is_throw' is false, so no need to free. */
-    ecma_completion_value_t put_comp = ecma_builtin_helper_def_prop (obj_p,
-                                                                     new_array_index_string_p,
-                                                                     value,
-                                                                     true, /* Writable */
-                                                                     true, /* Enumerable */
-                                                                     true, /* Configurable */
-                                                                     false); /* Failure handling */
+    ecma_value_t put_comp = ecma_builtin_helper_def_prop (obj_p,
+                                                          new_array_index_string_p,
+                                                          value,
+                                                          true, /* Writable */
+                                                          true, /* Enumerable */
+                                                          true, /* Configurable */
+                                                          false); /* Failure handling */
 
     JERRY_ASSERT (ecma_is_completion_value_normal_true (put_comp));
 
     ecma_deref_ecma_string (new_array_index_string_p);
   }
 
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     ret_value = ecma_make_simple_completion_value (ECMA_SIMPLE_VALUE_TRUE);
   }
@@ -484,13 +484,13 @@ ecma_builtin_helper_string_index_normalize (ecma_number_t index, /**< index */
  *
  * @return uint32_t - (last)index of search string
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_helper_string_prototype_object_index_of (ecma_value_t this_arg, /**< this argument */
                                                       ecma_value_t arg1, /**< routine's first argument */
                                                       ecma_value_t arg2, /**< routine's second argument */
                                                       bool first_index) /**< routine's third argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1 */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -532,7 +532,7 @@ ecma_builtin_helper_string_prototype_object_index_of (ecma_value_t this_arg, /**
     *ret_num_p = ecma_uint32_to_number (index_of);
   }
 
-  ret_value = ecma_make_normal_completion_value (ecma_make_number_value (ret_num_p));
+  ret_value = ecma_make_number_value (ret_num_p);
 
   ECMA_OP_TO_NUMBER_FINALIZE (pos_num);
   ECMA_FINALIZE (search_str_val);
@@ -685,9 +685,9 @@ ecma_builtin_helper_string_find_index (ecma_string_t *original_str_p, /**< index
  *          ECMA-262 v5, 15.4.5.1
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_helper_def_prop (ecma_object_t *obj_p, /**< object */
                               ecma_string_t *index_p, /**< index string */
                               ecma_value_t value, /**< value */

@@ -51,9 +51,9 @@
  *          ECMA-262 v5, 15.4.3.2
  *
  * @return completion value
- *         Returned value must be freed with ecma_free_completion_value.
+ *         Returned value must be freed with ecma_free_value.
  */
-static ecma_completion_value_t
+static ecma_value_t
 ecma_builtin_array_object_is_array (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                     ecma_value_t arg) /**< first argument */
 {
@@ -77,7 +77,7 @@ ecma_builtin_array_object_is_array (ecma_value_t this_arg __attr_unused___, /**<
  *
  * @return completion-value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_array_dispatch_call (const ecma_value_t *arguments_list_p, /**< arguments list */
                                   ecma_length_t arguments_list_len) /**< number of arguments */
 {
@@ -91,7 +91,7 @@ ecma_builtin_array_dispatch_call (const ecma_value_t *arguments_list_p, /**< arg
  *
  * @return completion-value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_builtin_array_dispatch_construct (const ecma_value_t *arguments_list_p, /**< arguments list */
                                        ecma_length_t arguments_list_len) /**< number of arguments */
 {
