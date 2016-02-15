@@ -24,10 +24,10 @@
  * \addtogroup eval eval
  */
 
-extern ecma_completion_value_t
+extern ecma_value_t
 ecma_op_eval (ecma_string_t *, bool, bool);
 
-extern ecma_completion_value_t
+extern ecma_value_t
 ecma_op_eval_chars_buffer (const jerry_api_char_t *, size_t, bool, bool);
 
 /**

@@ -397,7 +397,7 @@ re_parse_alternative (re_compiler_ctx_t *re_ctx_p, /**< RegExp compiler context 
 {
   uint32_t idx;
   re_bytecode_ctx_t *bc_ctx_p = re_ctx_p->bytecode_ctx_p;
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   uint32_t alterantive_offset = re_get_bytecode_length (re_ctx_p->bytecode_ctx_p);
   bool should_loop = true;
@@ -635,7 +635,7 @@ re_compile_bytecode (re_compiled_code_t **out_bytecode_p, /**< out:pointer to by
                      ecma_string_t *pattern_str_p, /**< pattern */
                      uint16_t flags) /**< flags */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   re_compiler_ctx_t re_ctx;
   re_ctx.flags = flags;
   re_ctx.highest_backref = 0;

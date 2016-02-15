@@ -70,7 +70,7 @@ ecma_builtin_function_helper_get_function_expression (const ecma_value_t *argume
 {
   JERRY_ASSERT (arguments_list_len == 0 || arguments_list_p != NULL);
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_string_t *left_parenthesis_str_p, *right_parenthesis_str_p;
   ecma_string_t *left_brace_str_p, *right_brace_str_p;
@@ -190,7 +190,7 @@ ecma_builtin_function_dispatch_construct (const ecma_value_t *arguments_list_p, 
 {
   JERRY_ASSERT (arguments_list_len == 0 || arguments_list_p != NULL);
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (arguments_value,
                   ecma_builtin_function_helper_get_function_expression (arguments_list_p,

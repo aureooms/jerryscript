@@ -87,7 +87,7 @@ ecma_builtin_object_prototype_object_value_of (ecma_value_t this_arg) /**< this 
 static ecma_completion_value_t
 ecma_builtin_object_prototype_object_to_locale_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t return_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t return_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   /* 1. */
   ECMA_TRY_CATCH (obj_val,
                   ecma_op_to_object (this_arg),
@@ -134,7 +134,7 @@ static ecma_completion_value_t
 ecma_builtin_object_prototype_object_has_own_property (ecma_value_t this_arg, /**< this argument */
                                                        ecma_value_t arg) /**< first argument */
 {
-  ecma_completion_value_t return_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t return_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (to_string_val,
@@ -187,7 +187,7 @@ ecma_builtin_object_prototype_object_is_prototype_of (ecma_value_t this_arg, /**
     return ecma_make_simple_completion_value (ECMA_SIMPLE_VALUE_FALSE);
   }
 
-  ecma_completion_value_t return_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t return_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 2. ToObject(this) */
   ECMA_TRY_CATCH (obj_value,
@@ -227,7 +227,7 @@ static ecma_completion_value_t
 ecma_builtin_object_prototype_object_property_is_enumerable (ecma_value_t this_arg, /**< this argument */
                                                              ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t return_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t return_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (to_string_val,

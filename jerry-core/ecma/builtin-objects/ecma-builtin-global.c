@@ -65,7 +65,7 @@ ecma_builtin_global_object_print (ecma_value_t this_arg __attr_unused___, /**< t
                                   const ecma_value_t args[], /**< arguments list */
                                   ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /*
    * TODO:
@@ -154,7 +154,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_eval (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                  ecma_value_t x) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   bool is_direct_eval = vm_is_direct_eval_form_call ();
 
@@ -199,7 +199,7 @@ ecma_builtin_global_object_parse_int (ecma_value_t this_arg __attr_unused___, /*
                                       ecma_value_t string, /**< routine's first argument */
                                       ecma_value_t radix) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (string_var, ecma_op_to_string (string), ret_value);
@@ -424,7 +424,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_parse_float (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                         ecma_value_t string) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (string_var, ecma_op_to_string (string), ret_value);
@@ -656,7 +656,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_is_nan (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                    ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -683,7 +683,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_is_finite (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                       ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -755,7 +755,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_decode_uri_helper (ecma_value_t uri __attr_unused___, /**< uri argument */
                                               const uint8_t *reserved_uri_bitset) /**< reserved characters bitset */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (string,
                   ecma_op_to_string (uri),
@@ -1033,7 +1033,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_encode_uri_helper (ecma_value_t uri, /**< uri argument */
                                               const uint8_t *unescaped_uri_bitset_p) /**< unescaped bitset */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (string,
                   ecma_op_to_string (uri),
@@ -1256,7 +1256,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_escape (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                    ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (string,
                   ecma_op_to_string (arg),
@@ -1379,7 +1379,7 @@ static ecma_completion_value_t
 ecma_builtin_global_object_unescape (ecma_value_t this_arg __attr_unused___, /**< this argument */
                                      ecma_value_t arg) /**< routine's first argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (string, ecma_op_to_string (arg), ret_value);

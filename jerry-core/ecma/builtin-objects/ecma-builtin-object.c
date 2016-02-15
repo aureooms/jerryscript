@@ -56,7 +56,7 @@ ecma_builtin_object_dispatch_call (const ecma_value_t *arguments_list_p, /**< ar
 {
   JERRY_ASSERT (arguments_list_len == 0 || arguments_list_p != NULL);
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (arguments_list_len == 0
       || ecma_is_value_undefined (arguments_list_p[0])
@@ -117,7 +117,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_get_prototype_of (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                              ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   if (!ecma_is_value_object (arg))
@@ -157,7 +157,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_get_own_property_names (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                                    ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (arg))
   {
@@ -187,7 +187,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_seal (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                  ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (arg))
@@ -259,7 +259,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_freeze (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                    ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (arg))
@@ -338,7 +338,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_prevent_extensions (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (arg))
   {
@@ -368,7 +368,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_is_sealed (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                       ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (arg))
@@ -437,7 +437,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_is_frozen (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                       ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (arg))
@@ -514,7 +514,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_is_extensible (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                           ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (arg))
   {
@@ -547,7 +547,7 @@ static ecma_completion_value_t
 ecma_builtin_object_object_keys (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                  ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (arg))
   {
@@ -578,7 +578,7 @@ ecma_builtin_object_object_get_own_property_descriptor (ecma_value_t this_arg __
                                                         ecma_value_t arg1, /**< routine's first argument */
                                                         ecma_value_t arg2) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (arg1))
@@ -634,7 +634,7 @@ ecma_builtin_object_object_create (ecma_value_t this_arg, /**< 'this' argument *
                                    ecma_value_t arg1, /**< routine's first argument */
                                    ecma_value_t arg2) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (arg1) && !ecma_is_value_null (arg1))
@@ -690,7 +690,7 @@ ecma_builtin_object_object_define_properties (ecma_value_t this_arg __attr_unuse
                                               ecma_value_t arg1, /**< routine's first argument */
                                               ecma_value_t arg2) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (arg1))
@@ -797,7 +797,7 @@ ecma_builtin_object_object_define_property (ecma_value_t this_arg __attr_unused_
                                             ecma_value_t arg2, /**< routine's second argument */
                                             ecma_value_t arg3) /**< routine's third argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (arg1))
   {

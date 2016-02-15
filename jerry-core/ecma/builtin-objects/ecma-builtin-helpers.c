@@ -127,7 +127,7 @@ ecma_completion_value_t
 ecma_builtin_helper_get_to_locale_string_at_index (ecma_object_t *obj_p, /** < this object */
                                                    uint32_t index) /** < array index */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_string_t *index_string_p = ecma_new_ecma_string_from_uint32 (index);
 
   ECMA_TRY_CATCH (index_value,
@@ -331,7 +331,7 @@ ecma_builtin_helper_array_concat_value (ecma_object_t *obj_p, /**< array */
                                         uint32_t *length_p, /**< in-out: array's length */
                                         ecma_value_t value) /**< value to concat */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 5.b */
   if (ecma_is_value_object (value)
@@ -490,7 +490,7 @@ ecma_builtin_helper_string_prototype_object_index_of (ecma_value_t this_arg, /**
                                                       ecma_value_t arg2, /**< routine's second argument */
                                                       bool first_index) /**< routine's third argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1 */
   ECMA_TRY_CATCH (check_coercible_val,

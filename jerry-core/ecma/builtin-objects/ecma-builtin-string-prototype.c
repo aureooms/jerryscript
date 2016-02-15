@@ -119,7 +119,7 @@ static ecma_completion_value_t
 ecma_builtin_string_prototype_object_char_at (ecma_value_t this_arg, /**< this argument */
                                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1 */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -175,7 +175,7 @@ static ecma_completion_value_t
 ecma_builtin_string_prototype_object_char_code_at (ecma_value_t this_arg, /**< this argument */
                                                    ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1 */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -244,7 +244,7 @@ ecma_builtin_string_prototype_object_concat (ecma_value_t this_arg, /**< this ar
                                              const ecma_value_t *argument_list_p, /**< arguments list */
                                              ecma_length_t arguments_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1 */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -345,7 +345,7 @@ static ecma_completion_value_t
 ecma_builtin_string_prototype_object_locale_compare (ecma_value_t this_arg, /**< this argument */
                                                      ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_check_coercible_val,
@@ -404,7 +404,7 @@ static ecma_completion_value_t
 ecma_builtin_string_prototype_object_match (ecma_value_t this_arg, /**< this argument */
                                             ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_check_coercible_value,
@@ -485,7 +485,7 @@ ecma_builtin_string_prototype_object_match (ecma_value_t this_arg, /**< this arg
       /* 8.e. */
       bool last_match = true;
 
-      //ecma_completion_value_t exec_result = ecma_make_empty_completion_value ();
+      //ecma_completion_value_t exec_result = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
       /* 8.f. */
       while (last_match && ecma_is_completion_value_empty (ret_value))
@@ -692,7 +692,7 @@ static ecma_completion_value_t
 ecma_builtin_string_prototype_object_replace_match (ecma_builtin_replace_search_ctx_t *context_p) /**< search
                                                                                                    * context */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   context_p->match_start = 0;
   context_p->match_end = 0;
@@ -793,7 +793,7 @@ ecma_builtin_string_prototype_object_replace_get_string (ecma_builtin_replace_se
                                                                                                         * context */
                                                          ecma_value_t match_value) /**< returned match value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_string_t *length_string_p = ecma_get_magic_string (LIT_MAGIC_STRING_LENGTH);
   ecma_object_t *match_object_p = ecma_get_object_from_value (match_value);
 
@@ -1072,7 +1072,7 @@ static ecma_completion_value_t
 ecma_builtin_string_prototype_object_replace_loop (ecma_builtin_replace_search_ctx_t *context_p) /**< search
                                                                                                   * context */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_length_t previous_start = 0;
   bool continue_match = true;
 
@@ -1184,7 +1184,7 @@ ecma_builtin_string_prototype_object_replace_main (ecma_builtin_replace_search_c
                                                                                                   * context */
                                                    ecma_value_t replace_value) /**< replacement for a match */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (ecma_op_is_callable (replace_value))
   {
@@ -1262,7 +1262,7 @@ ecma_builtin_string_prototype_object_replace (ecma_value_t this_arg, /**< this a
                                               ecma_value_t search_value, /**< routine's first argument */
                                               ecma_value_t replace_value) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -1356,7 +1356,7 @@ static ecma_completion_value_t
 ecma_builtin_string_prototype_object_search (ecma_value_t this_arg, /**< this argument */
                                              ecma_value_t regexp_arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (check_coercible_value,
@@ -1453,7 +1453,7 @@ ecma_builtin_string_prototype_object_slice (ecma_value_t this_arg, /**< this arg
                                             ecma_value_t arg1, /**< routine's first argument */
                                             ecma_value_t arg2) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -1534,7 +1534,7 @@ ecma_builtin_helper_split_match (ecma_value_t input_string, /**< first argument 
                                  ecma_length_t start_idx, /**< second argument */
                                  ecma_value_t separator) /**< third argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   if (ecma_is_value_object (separator)
@@ -1648,7 +1648,7 @@ ecma_builtin_string_prototype_object_split (ecma_value_t this_arg, /**< this arg
                                             ecma_value_t arg1, /**< separator */
                                             ecma_value_t arg2) /**< limit */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_check_coercible_val,
@@ -1988,7 +1988,7 @@ ecma_builtin_string_prototype_object_substring (ecma_value_t this_arg, /**< this
                                                 ecma_value_t arg1, /**< routine's first argument */
                                                 ecma_value_t arg2) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1 */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -2064,7 +2064,7 @@ ecma_builtin_string_prototype_object_conversion_helper (ecma_value_t this_arg, /
                                                         bool lower_case) /**< convert to lower (true)
                                                                           *   or upper (false) case */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -2251,7 +2251,7 @@ ecma_builtin_string_prototype_object_to_locale_upper_case (ecma_value_t this_arg
 static ecma_completion_value_t
 ecma_builtin_string_prototype_object_trim (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1 */
   ECMA_TRY_CATCH (check_coercible_val,
@@ -2290,7 +2290,7 @@ ecma_builtin_string_prototype_object_substr (ecma_value_t this_arg, /**< this ar
                                              ecma_value_t start, /**< routine's first argument */
                                              ecma_value_t length) /**< routine's second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (check_coercible_val,
                   ecma_op_check_object_coercible (this_arg),

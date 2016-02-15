@@ -60,7 +60,7 @@ ecma_op_check_object_coercible (ecma_value_t value) /**< ecma-value */
   }
   else
   {
-    return ecma_make_empty_completion_value ();
+    return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   }
 } /* ecma_op_check_object_coercible */
 
@@ -275,7 +275,7 @@ ecma_op_to_number (ecma_value_t value) /**< ecma-value */
   }
   else if (ecma_is_value_object (value))
   {
-    ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+    ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
     ECMA_TRY_CATCH (primitive_value,
                     ecma_op_to_primitive (value, ECMA_PREFERRED_TYPE_NUMBER),
@@ -333,7 +333,7 @@ ecma_op_to_string (ecma_value_t value) /**< ecma-value */
 
   if (unlikely (ecma_is_value_object (value)))
   {
-    ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+    ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
     ECMA_TRY_CATCH (prim_value,
                     ecma_op_to_primitive (value, ECMA_PREFERRED_TYPE_STRING),
@@ -571,7 +571,7 @@ ecma_op_to_property_descriptor (ecma_value_t obj_value, /**< object value */
                                                                                   if return value is normal
                                                                                   empty completion value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   // 1.
   if (!ecma_is_value_object (obj_value))

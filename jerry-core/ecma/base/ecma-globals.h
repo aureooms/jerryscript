@@ -59,7 +59,8 @@ typedef enum
   ECMA_TYPE_SIMPLE, /**< simple value */
   ECMA_TYPE_NUMBER, /**< 64-bit integer */
   ECMA_TYPE_STRING, /**< pointer to description of a string */
-  ECMA_TYPE_OBJECT /**< pointer to description of an object */
+  ECMA_TYPE_OBJECT, /**< pointer to description of an object */
+  ECMA_TYPE_ERROR /**< boxed error value */
 } ecma_type_t;
 
 /**
@@ -94,40 +95,9 @@ typedef enum
 } ecma_property_type_t;
 
 /**
- * Type of block evaluation (completion) result.
- *
- * See also: ECMA-262 v5, 8.9.
- */
-typedef enum
-{
-  ECMA_COMPLETION_TYPE_NORMAL, /**< default completion */
-  ECMA_COMPLETION_TYPE_RETURN, /**< completion with return */
-  ECMA_COMPLETION_TYPE_JUMP, /**< implementation-defined completion type
-                              *   for jump statements (break, continue)
-                              *   that require completion of one or several
-                              *   statements, before performing related jump.
-                              *
-                              *   For example, 'break' in the following code
-                              *   requires to return from opfunc_with handler
-                              *   before performing jump to the loop end:
-                              *
-                              *     for (var i = 0; i < 10; i++)
-                              *     {
-                              *        with (obj)
-                              *        {
-                              *          break;
-                              *        }
-                              *     }
-                              */
-  ECMA_COMPLETION_TYPE_THROW, /**< completion with throw */
-  ECMA_COMPLETION_TYPE_META /**< implementation-defined completion type
-                                 for meta opcode */
-} ecma_completion_type_t;
-
-/**
  * Description of an ecma-value
  *
- * Bit-field structure: type (2) | value (ECMA_POINTER_FIELD_WIDTH)
+ * Bit-field structure: type (3) | value (ECMA_POINTER_FIELD_WIDTH)
  */
 typedef uint32_t ecma_value_t;
 
@@ -135,7 +105,7 @@ typedef uint32_t ecma_value_t;
  * Value type (ecma_type_t)
  */
 #define ECMA_VALUE_TYPE_POS (0)
-#define ECMA_VALUE_TYPE_WIDTH (2)
+#define ECMA_VALUE_TYPE_WIDTH (3)
 
 /**
  * Simple value (ecma_simple_value_t) or compressed pointer to value (depending on value_type)
@@ -148,53 +118,6 @@ typedef uint32_t ecma_value_t;
  * Size of ecma value description, in bits
  */
 #define ECMA_VALUE_SIZE (ECMA_VALUE_VALUE_POS + ECMA_VALUE_VALUE_WIDTH)
-
-/**
- * Description of a block completion value
- *
- * See also: ECMA-262 v5, 8.9.
- *
- *                                               value (16)
- * Bit-field structure: type (8) | padding (8) <
- *                                               break / continue target
- */
-typedef uint32_t ecma_completion_value_t;
-
-/**
- * Value
- *
- * Used for normal, return, throw and exit completion types.
- */
-#define ECMA_COMPLETION_VALUE_VALUE_POS (0)
-#define ECMA_COMPLETION_VALUE_VALUE_WIDTH (ECMA_VALUE_SIZE)
-
-/**
- * Type (ecma_completion_type_t)
- */
-#define ECMA_COMPLETION_VALUE_TYPE_POS (JERRY_ALIGNUP (ECMA_COMPLETION_VALUE_VALUE_POS + \
-                                                                  ECMA_COMPLETION_VALUE_VALUE_WIDTH, \
-                                                                  JERRY_BITSINBYTE))
-#define ECMA_COMPLETION_VALUE_TYPE_WIDTH (8)
-
-/**
- * Size of ecma completion value description, in bits
- */
-#define ECMA_COMPLETION_VALUE_SIZE (ECMA_COMPLETION_VALUE_TYPE_POS + \
-                                    ECMA_COMPLETION_VALUE_TYPE_WIDTH)
-
-/**
- * Label
- *
- * Used for break and continue completion types.
- */
-typedef struct
-{
-  /** Target's offset */
-  uint32_t offset;
-
-  /** Levels to label left */
-  uint32_t depth;
-} ecma_label_descriptor_t;
 
 /**
  * Internal properties' identifiers.

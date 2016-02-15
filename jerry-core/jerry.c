@@ -521,32 +521,22 @@ jerry_api_convert_api_value_to_ecma_value (ecma_value_t *out_value_p, /**< out: 
  */
 static jerry_completion_code_t
 jerry_api_convert_eval_completion_to_retval (jerry_api_value_t *retval_p, /**< out: api value */
-                                             ecma_completion_value_t completion) /**< completion of 'eval'-mode
-                                                                                  *   code execution */
+                                             ecma_value_t completion) /**< completion of 'eval'-mode
+                                                                       *   code execution */
 {
   jerry_completion_code_t ret_code;
 
-  if (ecma_is_completion_value_normal (completion))
+  if (!ecma_is_value_error (completion))
   {
-    ret_code = JERRY_COMPLETION_CODE_OK;
+    jerry_api_convert_ecma_value_to_api_value (retval_p, completion);
 
-    jerry_api_convert_ecma_value_to_api_value (retval_p,
-                                               ecma_get_completion_value_value (completion));
+    ret_code = JERRY_COMPLETION_CODE_OK;
   }
   else
   {
     jerry_api_convert_ecma_value_to_api_value (retval_p, ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED));
 
-    if (ecma_is_completion_value_throw (completion))
-    {
-      ret_code = JERRY_COMPLETION_CODE_UNHANDLED_EXCEPTION;
-    }
-    else
-    {
-      JERRY_ASSERT (ecma_is_completion_value_empty (completion));
-
-      ret_code = JERRY_COMPLETION_CODE_OK;
-    }
+    ret_code = JERRY_COMPLETION_CODE_UNHANDLED_EXCEPTION;
   }
 
   return ret_code;
@@ -730,10 +720,9 @@ jerry_api_create_array_object (jerry_api_size_t size) /* size of array */
   ecma_value_t array_length = ecma_make_number_value (length_num_p);
 
   jerry_api_length_t argument_size = 1;
-  ecma_completion_value_t new_array_completion = ecma_op_create_array_object (&array_length, argument_size, true);
-  JERRY_ASSERT (ecma_is_completion_value_normal (new_array_completion));
-  ecma_value_t val = ecma_get_completion_value_value (new_array_completion);
-  jerry_api_object_t *obj_p = ecma_get_object_from_value (val);
+  ecma_value_t new_array_completion = ecma_op_create_array_object (&array_length, argument_size, true);
+  JERRY_ASSERT (!ecma_is_value_error (new_array_completion));
+  jerry_api_object_t *obj_p = ecma_get_object_from_value (new_array_completion);
 
   ecma_free_value (array_length, true);
   return obj_p;
@@ -753,10 +742,10 @@ jerry_api_set_array_index_value (jerry_api_object_t *array_obj_p, /* array objec
   ecma_string_t *str_idx_p = ecma_new_ecma_string_from_uint32 ((uint32_t) index);
   ecma_value_t value;
   jerry_api_convert_api_value_to_ecma_value (&value, value_p);
-  ecma_completion_value_t set_completion = ecma_op_object_put (array_obj_p, str_idx_p, value, false);
-  JERRY_ASSERT (ecma_is_completion_value_normal (set_completion));
+  ecma_value_t set_completion = ecma_op_object_put (array_obj_p, str_idx_p, value, false);
+  JERRY_ASSERT (!ecma_is_value_error (set_completion));
 
-  ecma_free_completion_value (set_completion);
+  ecma_free_value (set_completion, true);
   ecma_deref_ecma_string (str_idx_p);
   ecma_free_value (value, true);
 
@@ -780,12 +769,11 @@ jerry_api_get_array_index_value (jerry_api_object_t *array_obj_p, /* array objec
                                  jerry_api_value_t *value_p) /* output value at index */
 {
   ecma_string_t *str_idx_p = ecma_new_ecma_string_from_uint32 ((uint32_t) index);
-  ecma_completion_value_t get_completion = ecma_op_object_get (array_obj_p, str_idx_p);
-  JERRY_ASSERT (ecma_is_completion_value_normal (get_completion));
-  ecma_value_t val = ecma_get_completion_value_value (get_completion);
-  jerry_api_convert_ecma_value_to_api_value (value_p, val);
+  ecma_value_t get_completion = ecma_op_object_get (array_obj_p, str_idx_p);
+  JERRY_ASSERT (!ecma_is_value_error (get_completion));
+  jerry_api_convert_ecma_value_to_api_value (value_p, get_completion);
 
-  ecma_free_completion_value (get_completion);
+  ecma_free_value (get_completion, true);
   ecma_deref_ecma_string (str_idx_p);
 
   return true;
@@ -911,10 +899,10 @@ jerry_api_create_external_function (jerry_external_handler_t handler_p) /**< poi
  *       if called native handler returns true, then dispatcher just returns value received
  *       through 'return value' output argument, otherwise - throws the value as an exception.
  *
- * @return completion value
- *         Returned value must be freed with ecma_free_completion_value
+ * @return ecma value
+ *         Returned value must be freed with ecma_free_value
  */
-ecma_completion_value_t
+ecma_value_t
 jerry_dispatch_external_function (ecma_object_t *function_object_p, /**< external function object */
                                   ecma_external_pointer_t handler_p, /**< pointer to the function's native handler */
                                   ecma_value_t this_arg_value, /**< 'this' argument */
@@ -924,7 +912,7 @@ jerry_dispatch_external_function (ecma_object_t *function_object_p, /**< externa
 
   const ecma_length_t args_count = (arg_collection_p != NULL ? arg_collection_p->unit_number : 0);
 
-  ecma_completion_value_t completion_value;
+  ecma_value_t completion_value;
 
   MEM_DEFINE_LOCAL_ARRAY (api_arg_values, args_count, jerry_api_value_t);
 
@@ -957,11 +945,11 @@ jerry_dispatch_external_function (ecma_object_t *function_object_p, /**< externa
 
   if (is_successful)
   {
-    completion_value = ecma_make_normal_completion_value (ret_value);
+    completion_value = ret_value;
   }
   else
   {
-    completion_value = ecma_make_throw_completion_value (ret_value);
+    completion_value = ecma_make_error_value (ret_value);
   }
 
   jerry_api_release_value (&api_ret_value);
@@ -1099,18 +1087,16 @@ jerry_api_delete_object_field (jerry_api_object_t *object_p, /**< object to dele
   ecma_string_t *field_name_str_p = ecma_new_ecma_string_from_utf8 ((lit_utf8_byte_t *) field_name_p,
                                                                     (lit_utf8_size_t) field_name_size);
 
-  ecma_completion_value_t delete_completion = ecma_op_object_delete (object_p,
-                                                                     field_name_str_p,
-                                                                     true);
+  ecma_value_t delete_completion = ecma_op_object_delete (object_p,
+                                                          field_name_str_p,
+                                                          true);
 
-  if (!ecma_is_completion_value_normal (delete_completion))
+  if (ecma_is_value_error (delete_completion))
   {
-    JERRY_ASSERT (ecma_is_completion_value_throw (delete_completion));
-
     is_successful = false;
   }
 
-  ecma_free_completion_value (delete_completion);
+  ecma_free_value (delete_completion, true);
 
   ecma_deref_ecma_string (field_name_str_p);
 
@@ -1158,11 +1144,11 @@ jerry_api_foreach_object_field (jerry_api_object_t *object_p, /**< object */
   ecma_collection_header_t *names_p = ecma_op_object_get_property_names (object_p, false, true, true);
   ecma_collection_iterator_init (&names_iter, names_p);
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   bool continuous = true;
 
-  while (ecma_is_completion_value_empty (ret_value)
+  while (ecma_is_value_empty (ret_value)
          && continuous
          && ecma_collection_iterator_next (&names_iter))
   {
@@ -1181,15 +1167,15 @@ jerry_api_foreach_object_field (jerry_api_object_t *object_p, /**< object */
   }
 
   ecma_free_values_collection (names_p, true);
-  if (ecma_is_completion_value_empty (ret_value))
+  if (ecma_is_value_empty (ret_value))
   {
     return true;
   }
   else
   {
-    JERRY_ASSERT (ecma_is_completion_value_throw (ret_value));
+    JERRY_ASSERT (ecma_is_value_error (ret_value));
 
-    ecma_free_completion_value (ret_value);
+    ecma_free_value (ret_value, true);
 
     return false;
   }
@@ -1220,23 +1206,19 @@ jerry_api_get_object_field_value_sz (jerry_api_object_t *object_p, /**< object *
   ecma_string_t *field_name_str_p = ecma_new_ecma_string_from_utf8 ((lit_utf8_byte_t *) field_name_p,
                                                                     (lit_utf8_size_t) field_name_size);
 
-  ecma_completion_value_t get_completion = ecma_op_object_get (object_p,
-                                                               field_name_str_p);
+  ecma_value_t get_completion = ecma_op_object_get (object_p,
+                                                    field_name_str_p);
 
-  if (ecma_is_completion_value_normal (get_completion))
+  if (!ecma_is_value_error (get_completion))
   {
-    ecma_value_t val = ecma_get_completion_value_value (get_completion);
-
-    jerry_api_convert_ecma_value_to_api_value (field_value_p, val);
+    jerry_api_convert_ecma_value_to_api_value (field_value_p, get_completion);
   }
   else
   {
-    JERRY_ASSERT (ecma_is_completion_value_throw (get_completion));
-
     is_successful = false;
   }
 
-  ecma_free_completion_value (get_completion);
+  ecma_free_value (get_completion, true);
 
   ecma_deref_ecma_string (field_name_str_p);
 
@@ -1284,19 +1266,17 @@ jerry_api_set_object_field_value_sz (jerry_api_object_t *object_p, /**< object *
   ecma_value_t value_to_put;
   jerry_api_convert_api_value_to_ecma_value (&value_to_put, field_value_p);
 
-  ecma_completion_value_t set_completion = ecma_op_object_put (object_p,
-                                                               field_name_str_p,
-                                                               value_to_put,
-                                                               true);
+  ecma_value_t set_completion = ecma_op_object_put (object_p,
+                                                    field_name_str_p,
+                                                    value_to_put,
+                                                    true);
 
-  if (!ecma_is_completion_value_normal (set_completion))
+  if (ecma_is_value_error (set_completion))
   {
-    JERRY_ASSERT (ecma_is_completion_value_throw (set_completion));
-
     is_successful = false;
   }
 
-  ecma_free_completion_value (set_completion);
+  ecma_free_value (set_completion, true);
 
   ecma_free_value (value_to_put, true);
   ecma_deref_ecma_string (field_name_str_p);
@@ -1413,7 +1393,7 @@ jerry_api_invoke_function (bool is_invoke_as_constructor, /**< true - invoke fun
     jerry_api_convert_api_value_to_ecma_value (arguments_list_p + i, args_p + i);
   }
 
-  ecma_completion_value_t call_completion;
+  ecma_value_t call_completion;
 
   if (is_invoke_as_constructor)
   {
@@ -1445,21 +1425,18 @@ jerry_api_invoke_function (bool is_invoke_as_constructor, /**< true - invoke fun
                                              args_count);
   }
 
-  if (!ecma_is_completion_value_normal (call_completion))
+  if (ecma_is_value_error (call_completion))
   {
     /* unhandled exception during the function call */
-    JERRY_ASSERT (ecma_is_completion_value_throw (call_completion));
-
     is_successful = false;
   }
 
-  if (retval_p != NULL)
+  if (is_successful && retval_p != NULL)
   {
-    jerry_api_convert_ecma_value_to_api_value (retval_p,
-                                               ecma_get_completion_value_value (call_completion));
+    jerry_api_convert_ecma_value_to_api_value (retval_p, call_completion);
   }
 
-  ecma_free_completion_value (call_completion);
+  ecma_free_value (call_completion, true);
 
   for (uint32_t i = 0; i < args_count; ++i)
   {
@@ -1605,14 +1582,14 @@ jerry_api_eval (const jerry_api_char_t *source_p, /**< source code */
 
   jerry_completion_code_t status;
 
-  ecma_completion_value_t completion = ecma_op_eval_chars_buffer ((const lit_utf8_byte_t *) source_p,
-                                                                  source_size,
-                                                                  is_direct,
-                                                                  is_strict);
+  ecma_value_t completion = ecma_op_eval_chars_buffer ((const lit_utf8_byte_t *) source_p,
+                                                       source_size,
+                                                       is_direct,
+                                                       is_strict);
 
   status = jerry_api_convert_eval_completion_to_retval (retval_p, completion);
 
-  ecma_free_completion_value (completion);
+  ecma_free_value (completion, true);
 
   return status;
 } /* jerry_api_eval */
@@ -2451,11 +2428,11 @@ jerry_exec_snapshot (const void *snapshot_p, /**< snapshot */
   else
   {
     /* vm should be already initialized */
-    ecma_completion_value_t completion = vm_run_eval (bytecode_p, false);
+    ecma_value_t completion = vm_run_eval (bytecode_p, false);
 
     ret_code = jerry_api_convert_eval_completion_to_retval (retval_p, completion);
 
-    ecma_free_completion_value (completion);
+    ecma_free_value (completion, true);
   }
 
   return ret_code;

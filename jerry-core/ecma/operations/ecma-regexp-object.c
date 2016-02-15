@@ -67,7 +67,7 @@ ecma_completion_value_t
 re_parse_regexp_flags (ecma_string_t *flags_str_p, /**< Input string with flags */
                        uint16_t *flags_p) /**< Output: parsed flag bits */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   lit_utf8_size_t flags_str_size = ecma_string_get_size (flags_str_p);
   MEM_DEFINE_LOCAL_ARRAY (flags_start_p, flags_str_size, lit_utf8_byte_t);
@@ -267,7 +267,7 @@ ecma_op_create_regexp_object (ecma_string_t *pattern_p, /**< input pattern */
                               ecma_string_t *flags_str_p) /**< flags */
 {
   JERRY_ASSERT (pattern_p != NULL);
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   uint16_t flags = 0;
 
   if (flags_str_p != NULL)
@@ -376,7 +376,7 @@ re_match_regexp (re_matcher_ctx_t *re_ctx_p, /**< RegExp matcher context */
                  lit_utf8_byte_t *str_p, /**< input string pointer */
                  lit_utf8_byte_t **out_str_p) /**< Output: matching substring iterator */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   re_opcode_t op;
 
   lit_utf8_byte_t *str_curr_p = str_p;
@@ -533,7 +533,7 @@ re_match_regexp (re_matcher_ctx_t *re_ctx_p, /**< RegExp matcher context */
       case RE_OP_LOOKAHEAD_POS:
       case RE_OP_LOOKAHEAD_NEG:
       {
-        ecma_completion_value_t match_value = ecma_make_empty_completion_value ();
+        ecma_completion_value_t match_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
         lit_utf8_byte_t *sub_str_p = NULL;
 
         uint32_t array_size = re_ctx_p->num_of_captures + re_ctx_p->num_of_non_captures;
@@ -1242,7 +1242,7 @@ ecma_regexp_exec_helper (ecma_value_t regexp_value, /**< RegExp object */
                          ecma_value_t input_string, /**< input string */
                          bool ignore_global) /**< ignore global flag */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   JERRY_ASSERT (ecma_is_value_object (regexp_value));
   JERRY_ASSERT (ecma_is_value_string (input_string));

@@ -58,7 +58,7 @@ ecma_builtin_string_object_from_char_code (ecma_value_t this_arg __attr_unused__
                                            const ecma_value_t args[], /**< arguments list */
                                            ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_string_t *ret_string_p = NULL;
 
   if (args_number == 0)
@@ -118,7 +118,7 @@ ecma_builtin_string_dispatch_call (const ecma_value_t *arguments_list_p, /**< ar
 {
   JERRY_ASSERT (arguments_list_len == 0 || arguments_list_p != NULL);
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (arguments_list_len == 0)
   {

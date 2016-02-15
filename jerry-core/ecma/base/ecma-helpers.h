@@ -64,6 +64,7 @@ extern bool ecma_is_value_array_hole (ecma_value_t);
 extern bool ecma_is_value_number (ecma_value_t);
 extern bool ecma_is_value_string (ecma_value_t);
 extern bool ecma_is_value_object (ecma_value_t);
+extern bool ecma_is_value_error (ecma_value_t);
 
 extern void ecma_check_value_type_is_spec_defined (ecma_value_t);
 
@@ -71,36 +72,13 @@ extern ecma_value_t ecma_make_simple_value (const ecma_simple_value_t value);
 extern ecma_value_t ecma_make_number_value (const ecma_number_t *);
 extern ecma_value_t ecma_make_string_value (const ecma_string_t *);
 extern ecma_value_t ecma_make_object_value (const ecma_object_t *);
+extern ecma_value_t ecma_make_error_value (ecma_value_t);
 extern ecma_number_t *ecma_get_number_from_value (ecma_value_t) __attr_pure___;
 extern ecma_string_t *ecma_get_string_from_value (ecma_value_t) __attr_pure___;
 extern ecma_object_t *ecma_get_object_from_value (ecma_value_t) __attr_pure___;
+extern ecma_value_t ecma_get_value_from_error_value (ecma_value_t) __attr_pure___;
 extern ecma_value_t ecma_copy_value (ecma_value_t, bool);
 extern void ecma_free_value (ecma_value_t, bool);
-
-extern ecma_completion_value_t ecma_make_completion_value (ecma_completion_type_t, ecma_value_t);
-extern ecma_completion_value_t ecma_make_simple_completion_value (ecma_simple_value_t);
-extern ecma_completion_value_t ecma_make_normal_completion_value (ecma_value_t);
-extern ecma_completion_value_t ecma_make_throw_completion_value (ecma_value_t);
-extern ecma_completion_value_t ecma_make_throw_obj_completion_value (ecma_object_t *);
-extern ecma_completion_value_t ecma_make_empty_completion_value (void);
-extern ecma_completion_value_t ecma_make_return_completion_value (ecma_value_t);
-extern ecma_completion_value_t ecma_make_meta_completion_value (void);
-extern ecma_value_t ecma_get_completion_value_value (ecma_completion_value_t);
-extern ecma_number_t *ecma_get_number_from_completion_value (ecma_completion_value_t) __attr_const___;
-extern ecma_string_t *ecma_get_string_from_completion_value (ecma_completion_value_t) __attr_const___;
-extern ecma_object_t *ecma_get_object_from_completion_value (ecma_completion_value_t) __attr_const___;
-extern ecma_completion_value_t ecma_copy_completion_value (ecma_completion_value_t);
-extern void ecma_free_completion_value (ecma_completion_value_t);
-
-extern bool ecma_is_completion_value_normal (ecma_completion_value_t);
-extern bool ecma_is_completion_value_throw (ecma_completion_value_t);
-extern bool ecma_is_completion_value_return (ecma_completion_value_t);
-extern bool ecma_is_completion_value_meta (ecma_completion_value_t);
-extern bool ecma_is_completion_value_jump (ecma_completion_value_t);
-extern bool ecma_is_completion_value_normal_simple_value (ecma_completion_value_t, ecma_simple_value_t);
-extern bool ecma_is_completion_value_normal_true (ecma_completion_value_t);
-extern bool ecma_is_completion_value_normal_false (ecma_completion_value_t);
-extern bool ecma_is_completion_value_empty (ecma_completion_value_t);
 
 /* ecma-helpers-string.c */
 extern ecma_string_t *ecma_new_ecma_string_from_utf8 (const lit_utf8_byte_t *, lit_utf8_size_t);

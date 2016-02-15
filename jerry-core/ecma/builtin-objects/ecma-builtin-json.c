@@ -614,7 +614,7 @@ ecma_builtin_json_walk (ecma_object_t *reviver_p, /**< reviver function */
   JERRY_ASSERT (holder_p);
   JERRY_ASSERT (name_p);
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (value_get,
                   ecma_op_object_get (holder_p, name_p),
@@ -704,7 +704,7 @@ ecma_builtin_json_parse (ecma_value_t this_arg __attr_unused___, /**< 'this' arg
                          ecma_value_t arg1, /**< string argument */
                          ecma_value_t arg2) /**< reviver argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (string,
                   ecma_op_to_string (arg1),
@@ -799,7 +799,7 @@ ecma_builtin_json_stringify (ecma_value_t this_arg __attr_unused___, /**< 'this'
                              ecma_value_t arg2,  /**< replacer */
                              ecma_value_t arg3)  /**< space */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_json_stringify_context_t context;
 
@@ -1224,7 +1224,7 @@ ecma_builtin_json_str (ecma_string_t *key_p, /**< property key*/
                        ecma_object_t *holder_p, /**< the object*/
                        ecma_json_stringify_context_t *context_p) /**< context*/
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (value,
@@ -1422,7 +1422,7 @@ ecma_builtin_json_object (ecma_object_t *obj_p, /**< the object*/
     return ecma_make_throw_obj_completion_value (ecma_new_standard_error (ECMA_ERROR_TYPE));
   }
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 2. */
   ecma_append_to_values_collection (context_p->occurence_stack_p, obj_value, true);
@@ -1622,7 +1622,7 @@ ecma_builtin_json_array (ecma_object_t *obj_p, /**< the array object*/
     return ecma_make_throw_obj_completion_value (ecma_new_standard_error (ECMA_ERROR_TYPE));
   }
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 2. */
   ecma_append_to_values_collection (context_p->occurence_stack_p, obj_value, true);

@@ -205,6 +205,18 @@ ecma_is_value_object (ecma_value_t value) /**< ecma-value */
 } /* ecma_is_value_object */
 
 /**
+ * Check if the value is an error value.
+ *
+ * @return true - if the value contains an error value,
+ *         false - otherwise.
+ */
+bool __attr_pure___ __attr_always_inline___
+ecma_is_value_error (ecma_value_t value) /**< ecma-value */
+{
+  return (ecma_get_value_type_field (value) == ECMA_TYPE_ERROR);
+} /* ecma_is_value_error */
+
+/**
  * Debug assertion that specified value's type is one of ECMA-defined
  * script-visible types, i.e.: undefined, null, boolean, number, string, object.
  */
@@ -291,6 +303,23 @@ ecma_make_object_value (const ecma_object_t *object_p) /**< object to reference 
 } /* ecma_make_object_value */
 
 /**
+ * error value constructor
+ */
+ecma_value_t __attr_const___
+ecma_make_error_value (ecma_value_t value) /**< original value */
+{
+  /* Error values cannot be converted. */
+  JERRY_ASSERT (!ecma_is_value_error (value));
+
+  ecma_value_t ret_value = 0;
+
+  ret_value = ecma_set_value_type_field (ret_value, ECMA_TYPE_ERROR);
+  ret_value |= error_value << ECMA_VALUE_TYPE_WIDTH;
+
+  return ret_value;
+} /* ecma_make_error_value */
+
+/**
  * Get pointer to ecma-number from ecma-value
  *
  * @return the pointer
@@ -331,6 +360,23 @@ ecma_get_object_from_value (ecma_value_t value) /**< ecma-value */
   return ECMA_GET_NON_NULL_POINTER (ecma_object_t,
                                     ecma_get_value_value_field (value));
 } /* ecma_get_object_from_value */
+
+/**
+ * Get the value from an error ecma-value
+ *
+ * @return ecma-value
+ */
+ecma_value_t __attr_pure___
+ecma_get_value_from_error_value (ecma_value_t value) /**< ecma-value */
+{
+  JERRY_ASSERT (ecma_get_value_type_field (value) == ECMA_TYPE_ERROR);
+
+  value >>= ECMA_VALUE_TYPE_WIDTH;
+
+  JERRY_ASSERT (ecma_get_value_type_field (value) != ECMA_TYPE_ERROR);
+
+  return value;
+} /* ecma_get_value_from_error_value */
 
 /**
  * Copy ecma-value.
@@ -445,408 +491,15 @@ ecma_free_value (ecma_value_t value, /**< value description */
       }
       break;
     }
+
+    case ECMA_TYPE_ERROR:
+    {
+      /* rare event */
+      ecma_free_value (ecma_get_value_from_error_value (value), do_deref_if_object);
+      break;
+    }
   }
 } /* ecma_free_value */
-
-/**
- * Get type field of completion value
- *
- * @return type field
- */
-static ecma_completion_type_t __attr_const___
-ecma_get_completion_value_type_field (ecma_completion_value_t completion_value) /**< completion value */
-{
-  return (ecma_completion_type_t) jrt_extract_bit_field (completion_value,
-                                                         ECMA_COMPLETION_VALUE_TYPE_POS,
-                                                         ECMA_COMPLETION_VALUE_TYPE_WIDTH);
-} /* ecma_get_completion_value_type_field */
-
-/**
- * Get value field of completion value
- *
- * @return value field
- */
-static ecma_value_t __attr_const___
-ecma_get_completion_value_value_field (ecma_completion_value_t completion_value) /**< completion value */
-{
-  return (ecma_value_t) jrt_extract_bit_field (completion_value,
-                                               ECMA_COMPLETION_VALUE_VALUE_POS,
-                                               ECMA_COMPLETION_VALUE_VALUE_WIDTH);
-} /* ecma_get_completion_value_value_field */
-
-/**
- * Set type field of completion value
- *
- * @return completion value with updated field
- */
-static ecma_completion_value_t __attr_const___
-ecma_set_completion_value_type_field (ecma_completion_value_t completion_value, /**< completion value
-                                                                                 * to set field in */
-                                      ecma_completion_type_t type_field) /**< new field value */
-{
-  return (ecma_completion_value_t) jrt_set_bit_field_value (completion_value,
-                                                            type_field,
-                                                            ECMA_COMPLETION_VALUE_TYPE_POS,
-                                                            ECMA_COMPLETION_VALUE_TYPE_WIDTH);
-} /* ecma_set_completion_value_type_field */
-
-/**
- * Set value field of completion value
- *
- * @return completion value with updated field
- */
-static ecma_completion_value_t __attr_pure___
-ecma_set_completion_value_value_field (ecma_completion_value_t completion_value, /**< completion value
-                                                                                  * to set field in */
-                                       ecma_value_t value_field) /**< new field value */
-{
-  return (ecma_completion_value_t) jrt_set_bit_field_value (completion_value,
-                                                            value_field,
-                                                            ECMA_COMPLETION_VALUE_VALUE_POS,
-                                                            ECMA_COMPLETION_VALUE_VALUE_WIDTH);
-} /* ecma_set_completion_value_value_field */
-
-
-/**
- * Normal, throw, return, exit and meta completion values constructor
- *
- * @return completion value
- */
-ecma_completion_value_t __attr_pure___ __attr_always_inline___
-ecma_make_completion_value (ecma_completion_type_t type, /**< type */
-                            ecma_value_t value) /**< value */
-{
-  const bool is_type_ok = (type == ECMA_COMPLETION_TYPE_NORMAL
-                     || type == ECMA_COMPLETION_TYPE_THROW
-                     || type == ECMA_COMPLETION_TYPE_RETURN
-                     || (type == ECMA_COMPLETION_TYPE_META
-                         && ecma_is_value_empty (value)));
-
-  JERRY_ASSERT (is_type_ok);
-
-  ecma_completion_value_t completion_value = 0;
-
-  completion_value = ecma_set_completion_value_type_field (completion_value,
-                                                           type);
-  completion_value = ecma_set_completion_value_value_field (completion_value,
-                                                            value);
-
-  return completion_value;
-} /* ecma_make_completion_value */
-
-/**
- * Simple normal completion value constructor
- *
- * @return completion value
- */
-ecma_completion_value_t __attr_const___ __attr_always_inline___
-ecma_make_simple_completion_value (ecma_simple_value_t simple_value) /**< simple ecma-value */
-{
-  JERRY_ASSERT (simple_value == ECMA_SIMPLE_VALUE_UNDEFINED
-                || simple_value == ECMA_SIMPLE_VALUE_NULL
-                || simple_value == ECMA_SIMPLE_VALUE_FALSE
-                || simple_value == ECMA_SIMPLE_VALUE_TRUE);
-
-  return ecma_make_completion_value (ECMA_COMPLETION_TYPE_NORMAL,
-                                     ecma_make_simple_value (simple_value));
-} /* ecma_make_simple_completion_value */
-
-/**
- * Normal completion value constructor
- *
- * @return completion value
- */
-ecma_completion_value_t __attr_pure___ __attr_always_inline___
-ecma_make_normal_completion_value (ecma_value_t value) /**< value */
-{
-  return ecma_make_completion_value (ECMA_COMPLETION_TYPE_NORMAL, value);
-} /* ecma_make_normal_completion_value */
-
-/**
- * Throw completion value constructor
- *
- * @return completion value
- */
-ecma_completion_value_t __attr_pure___ __attr_always_inline___
-ecma_make_throw_completion_value (ecma_value_t value) /**< value */
-{
-  return ecma_make_completion_value (ECMA_COMPLETION_TYPE_THROW, value);
-} /* ecma_make_throw_completion_value */
-
-/**
- * Throw completion value constructor.
- *
- * @return 'throw' completion value
- */
-ecma_completion_value_t __attr_const___
-ecma_make_throw_obj_completion_value (ecma_object_t *exception_p) /**< an object */
-{
-  JERRY_ASSERT (exception_p != NULL
-                && !ecma_is_lexical_environment (exception_p));
-
-  ecma_value_t exception = ecma_make_object_value (exception_p);
-
-  return ecma_make_throw_completion_value (exception);
-} /* ecma_make_throw_obj_completion_value */
-
-/**
- * Empty completion value constructor.
- *
- * @return (normal, empty, reserved) completion value.
- */
-ecma_completion_value_t __attr_const___ __attr_always_inline___
-ecma_make_empty_completion_value (void)
-{
-  return ecma_make_completion_value (ECMA_COMPLETION_TYPE_NORMAL,
-                                     ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY));
-} /* ecma_make_empty_completion_value */
-
-/**
- * Return completion value constructor
- *
- * @return completion value
- */
-ecma_completion_value_t __attr_pure___ __attr_always_inline___
-ecma_make_return_completion_value (ecma_value_t value) /**< value */
-{
-  return ecma_make_completion_value (ECMA_COMPLETION_TYPE_RETURN, value);
-} /* ecma_make_return_completion_value */
-
-/**
- * Meta completion value constructor
- *
- * @return completion value
- */
-ecma_completion_value_t __attr_const___ __attr_always_inline___
-ecma_make_meta_completion_value (void)
-{
-  return ecma_make_completion_value (ECMA_COMPLETION_TYPE_META,
-                                     ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY));
-} /* ecma_make_meta_completion_value */
-
-/**
- * Get ecma-value from specified completion value
- *
- * @return ecma-value
- */
-ecma_value_t __attr_const___ __attr_always_inline___
-ecma_get_completion_value_value (ecma_completion_value_t completion_value) /**< completion value */
-{
-  const ecma_completion_type_t type = ecma_get_completion_value_type_field (completion_value);
-
-  const bool is_type_ok = (type == ECMA_COMPLETION_TYPE_NORMAL
-                           || type == ECMA_COMPLETION_TYPE_THROW
-                           || type == ECMA_COMPLETION_TYPE_RETURN);
-
-  JERRY_ASSERT (is_type_ok);
-
-  return ecma_get_completion_value_value_field (completion_value);
-} /* ecma_get_completion_value_value */
-
-/**
- * Get pointer to ecma-number from completion value
- *
- * @return pointer
- */
-ecma_number_t *__attr_const___
-ecma_get_number_from_completion_value (ecma_completion_value_t completion_value) /**< completion value */
-{
-  return ecma_get_number_from_value (ecma_get_completion_value_value (completion_value));
-} /* ecma_get_number_from_completion_value */
-
-/**
- * Get pointer to ecma-string from completion value
- *
- * @return pointer
- */
-ecma_string_t *__attr_const___
-ecma_get_string_from_completion_value (ecma_completion_value_t completion_value) /**< completion value */
-{
-  return ecma_get_string_from_value (ecma_get_completion_value_value (completion_value));
-} /* ecma_get_string_from_completion_value */
-
-/**
- * Get pointer to ecma-object from completion value
- *
- * @return pointer
- */
-ecma_object_t *__attr_const___
-ecma_get_object_from_completion_value (ecma_completion_value_t completion_value) /**< completion value */
-{
-  return ecma_get_object_from_value (ecma_get_completion_value_value (completion_value));
-} /* ecma_get_object_from_completion_value */
-
-/**
- * Copy ecma-completion value.
- *
- * @return (source.type, ecma_copy_value (source.value), source.target).
- */
-ecma_completion_value_t
-ecma_copy_completion_value (ecma_completion_value_t value) /**< completion value */
-{
-  const ecma_completion_type_t type = ecma_get_completion_value_type_field (value);
-  const bool is_type_ok = (type == ECMA_COMPLETION_TYPE_NORMAL
-                           || type == ECMA_COMPLETION_TYPE_THROW
-                           || type == ECMA_COMPLETION_TYPE_RETURN
-                           || type == ECMA_COMPLETION_TYPE_JUMP);
-
-  JERRY_ASSERT (is_type_ok);
-
-  return ecma_make_completion_value (type,
-                                     ecma_copy_value (ecma_get_completion_value_value_field (value),
-                                                      true));
-} /* ecma_copy_completion_value */
-
-/**
- * Free the completion value.
- */
-void
-ecma_free_completion_value (ecma_completion_value_t completion_value) /**< completion value */
-{
-  switch (ecma_get_completion_value_type_field (completion_value))
-  {
-    case ECMA_COMPLETION_TYPE_NORMAL:
-    case ECMA_COMPLETION_TYPE_THROW:
-    case ECMA_COMPLETION_TYPE_RETURN:
-    {
-      ecma_value_t v = ecma_get_completion_value_value_field (completion_value);
-      ecma_free_value (v, true);
-      break;
-    }
-    case ECMA_COMPLETION_TYPE_JUMP:
-    {
-      break;
-    }
-    case ECMA_COMPLETION_TYPE_META:
-    {
-      JERRY_UNREACHABLE ();
-    }
-  }
-} /* ecma_free_completion_value */
-
-/**
- * Check if the completion value is normal value.
- *
- * @return true - if the completion type is normal,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_normal (ecma_completion_value_t value) /**< completion value */
-{
-  return (ecma_get_completion_value_type_field (value) == ECMA_COMPLETION_TYPE_NORMAL);
-} /* ecma_is_completion_value_normal */
-
-/**
- * Check if the completion value is throw value.
- *
- * @return true - if the completion type is throw,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_throw (ecma_completion_value_t value) /**< completion value */
-{
-  return (ecma_get_completion_value_type_field (value) == ECMA_COMPLETION_TYPE_THROW);
-} /* ecma_is_completion_value_throw */
-
-/**
- * Check if the completion value is return value.
- *
- * @return true - if the completion type is return,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_return (ecma_completion_value_t value) /**< completion value */
-{
-  return (ecma_get_completion_value_type_field (value) == ECMA_COMPLETION_TYPE_RETURN);
-} /* ecma_is_completion_value_return */
-
-/**
- * Check if the completion value is meta value.
- *
- * @return true - if the completion type is meta,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_meta (ecma_completion_value_t value) /**< completion value */
-{
-  if (ecma_get_completion_value_type_field (value) == ECMA_COMPLETION_TYPE_META)
-  {
-    JERRY_ASSERT (ecma_is_value_empty (ecma_get_completion_value_value_field (value)));
-
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-} /* ecma_is_completion_value_meta */
-
-/**
- * Check if the completion value is break / continue value.
- *
- * @return true - if the completion type is break / continue,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_jump (ecma_completion_value_t value) /**< completion value */
-{
-  return (ecma_get_completion_value_type_field (value) == ECMA_COMPLETION_TYPE_JUMP);
-} /* ecma_is_completion_value_jump */
-
-/**
- * Check if the completion value is specified normal simple value.
- *
- * @return true - if the completion type is normal and
- *                value contains specified simple ecma-value,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_normal_simple_value (ecma_completion_value_t value, /**< completion value */
-                                              ecma_simple_value_t simple_value) /**< simple value to check
-                                                                                     for equality with */
-{
-  return (value == ecma_make_simple_completion_value (simple_value));
-} /* ecma_is_completion_value_normal_simple_value */
-
-/**
- * Check if the completion value is normal true.
- *
- * @return true - if the completion type is normal and
- *                value contains ecma-true simple value,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_normal_true (ecma_completion_value_t value) /**< completion value */
-{
-  return ecma_is_completion_value_normal_simple_value (value, ECMA_SIMPLE_VALUE_TRUE);
-} /* ecma_is_completion_value_normal_true */
-
-/**
- * Check if the completion value is normal false.
- *
- * @return true - if the completion type is normal and
- *                value contains ecma-false simple value,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_normal_false (ecma_completion_value_t value) /**< completion value */
-{
-  return ecma_is_completion_value_normal_simple_value (value, ECMA_SIMPLE_VALUE_FALSE);
-} /* ecma_is_completion_value_normal_false */
-
-/**
- * Check if the completion value is normal empty value.
- *
- * @return true - if the completion type is normal and
- *                value contains empty simple value,
- *         false - otherwise.
- */
-bool __attr_const___ __attr_always_inline___
-ecma_is_completion_value_empty (ecma_completion_value_t value) /**< completion value */
-{
-  return (ecma_is_completion_value_normal (value)
-          && ecma_is_value_empty (ecma_get_completion_value_value_field (value)));
-} /* ecma_is_completion_value_empty */
 
 /**
  * @}

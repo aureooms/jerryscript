@@ -88,7 +88,7 @@ ecma_op_object_get (ecma_object_t *obj_p, /**< the object */
 
   JERRY_ASSERT (false);
 
-  return ecma_make_empty_completion_value ();
+  return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 } /* ecma_op_object_get */
 
 /**
@@ -351,7 +351,7 @@ ecma_op_object_delete (ecma_object_t *obj_p, /**< the object */
 
   JERRY_ASSERT (false);
 
-  return ecma_make_empty_completion_value ();
+  return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 } /* ecma_op_object_delete */
 
 /**
@@ -450,7 +450,7 @@ ecma_op_object_define_own_property (ecma_object_t *obj_p, /**< the object */
 
   JERRY_ASSERT (false);
 
-  return ecma_make_empty_completion_value ();
+  return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 } /* ecma_op_object_define_own_property */
 
 /**

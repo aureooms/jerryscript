@@ -53,10 +53,10 @@ typedef struct
 extern ecma_value_t
 ecma_op_create_regexp_object_from_bytecode (re_compiled_code_t *);
 
-extern ecma_completion_value_t
+extern ecma_value_t
 ecma_op_create_regexp_object (ecma_string_t *, ecma_string_t *);
 
-extern ecma_completion_value_t
+extern ecma_value_t
 ecma_regexp_exec_helper (ecma_value_t, ecma_value_t, bool);
 
 extern ecma_char_t
@@ -64,7 +64,7 @@ re_canonicalize (ecma_char_t, bool);
 extern void
 re_set_result_array_properties (ecma_object_t *, ecma_string_t *, uint32_t, int32_t);
 
-extern ecma_completion_value_t
+extern ecma_value_t
 re_parse_regexp_flags (ecma_string_t *, uint16_t *);
 
 extern void

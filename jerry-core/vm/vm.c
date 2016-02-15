@@ -74,7 +74,7 @@ vm_op_get_value (ecma_value_t object, /**< base object */
     return ecma_make_throw_obj_completion_value (error);
   }
 
-  ecma_completion_value_t completion_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t completion_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (property_val,
                   ecma_op_to_string (property),
@@ -104,7 +104,7 @@ vm_op_set_value (ecma_value_t object, /**< base object */
                  ecma_value_t value, /**< ecma value */
                  bool is_strict) /**< strict mode */
 {
-  ecma_completion_value_t completion_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t completion_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (obj_val,
                   ecma_op_to_object (object),
@@ -450,7 +450,7 @@ vm_init_loop (vm_frame_ctx_t *frame_ctx_p) /**< frame context */
 {
   const ecma_compiled_code_t *bytecode_header_p = frame_ctx_p->bytecode_header_p;
   uint8_t *byte_code_p = frame_ctx_p->byte_code_p;
-  ecma_completion_value_t last_completion_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t last_completion_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   uint16_t encoding_limit;
   uint16_t encoding_delta;
   uint16_t register_end;
@@ -591,7 +591,7 @@ vm_loop (vm_frame_ctx_t *frame_ctx_p) /**< frame context */
   const ecma_compiled_code_t *bytecode_header_p = frame_ctx_p->bytecode_header_p;
   uint8_t *byte_code_p = frame_ctx_p->byte_code_p;
   lit_cpointer_t *literal_start_p = frame_ctx_p->literal_start_p;
-  ecma_completion_value_t last_completion_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t last_completion_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_value_t *stack_top_p;
   uint16_t encoding_limit;

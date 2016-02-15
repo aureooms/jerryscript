@@ -49,7 +49,7 @@ opfunc_call_n (ecma_value_t this_value, /**< this object value */
                const ecma_value_t *arguments_list_p, /**< stack pointer */
                ecma_length_t arguments_list_len) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_op_is_callable (func_value))
   {
@@ -79,7 +79,7 @@ opfunc_construct_n (ecma_value_t constructor_value, /**< constructor object valu
                     const ecma_value_t *arguments_list_p, /**< stack pointer */
                     ecma_length_t arguments_list_len) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_constructor (constructor_value))
   {
@@ -134,7 +134,7 @@ vm_var_decl (vm_frame_ctx_t *frame_ctx_p, /**< interpreter context */
                                                                                            true),
                                                                 ECMA_SIMPLE_VALUE_UNDEFINED));
   }
-  return ecma_make_empty_completion_value ();
+  return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 } /* vm_var_decl */
 
 /**
@@ -148,7 +148,7 @@ vm_var_decl (vm_frame_ctx_t *frame_ctx_p, /**< interpreter context */
 ecma_completion_value_t
 opfunc_logical_not (ecma_value_t left_value) /**< left value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_simple_value_t old_value = ECMA_SIMPLE_VALUE_TRUE;
   ecma_completion_value_t to_bool_value = ecma_op_to_boolean (left_value);
@@ -174,7 +174,7 @@ opfunc_logical_not (ecma_value_t left_value) /**< left value */
 ecma_completion_value_t
 opfunc_typeof (ecma_value_t left_value) /**< left value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_string_t *type_str_p = NULL;
 
@@ -285,7 +285,7 @@ vm_op_delete_prop (ecma_value_t object, /**< base object */
                    ecma_value_t property, /**< property name */
                    bool is_strict) /**< strict mode */
 {
-  ecma_completion_value_t completion_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t completion_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (ecma_is_value_undefined (object))
   {
@@ -293,7 +293,7 @@ vm_op_delete_prop (ecma_value_t object, /**< base object */
   }
   else
   {
-    completion_value = ecma_make_empty_completion_value ();
+    completion_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
     ECMA_TRY_CATCH (check_coercible_ret,
                     ecma_op_check_object_coercible (object),
@@ -336,7 +336,7 @@ vm_op_delete_var (lit_cpointer_t name_literal, /**< name literal */
                   ecma_object_t *lex_env_p, /**< lexical environment */
                   bool is_strict) /**< strict mode */
 {
-  ecma_completion_value_t completion_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t completion_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_string_t *var_name_str_p;
 
@@ -388,7 +388,7 @@ ecma_collection_header_t *
 opfunc_for_in (ecma_value_t left_value, /**< left value */
                ecma_value_t *result_obj_p) /**< expression object */
 {
-  ecma_completion_value_t compl_val = ecma_make_empty_completion_value ();
+  ecma_completion_value_t compl_val = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_collection_header_t *prop_names_p = NULL;
 
   /* 3. */

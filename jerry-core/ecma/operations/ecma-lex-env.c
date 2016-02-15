@@ -182,7 +182,7 @@ ecma_op_create_mutable_binding (ecma_object_t *lex_env_p, /**< lexical environme
     }
   }
 
-  return ecma_make_empty_completion_value ();
+  return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 } /* ecma_op_create_mutable_binding */
 
 /**
@@ -258,7 +258,7 @@ ecma_op_set_mutable_binding (ecma_object_t *lex_env_p, /**< lexical environment 
     }
   }
 
-  return ecma_make_empty_completion_value ();
+  return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 } /* ecma_op_set_mutable_binding */
 
 /**

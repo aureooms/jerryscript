@@ -41,7 +41,7 @@
  * @return completion value
  *         Returned value must be freed with ecma_free_completion_value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_op_create_array_object (const ecma_value_t *arguments_list_p, /**< list of arguments that
                                                                         are passed to Array constructor */
                              ecma_length_t arguments_list_len, /**< length of the arguments' list */
@@ -144,7 +144,7 @@ ecma_op_create_array_object (const ecma_value_t *arguments_list_p, /**< list of 
  * @return completion value
  *         Returned value must be freed with ecma_free_completion_value
  */
-ecma_completion_value_t
+ecma_value_t
 ecma_op_array_object_define_own_property (ecma_object_t *obj_p, /**< the array object */
                                           ecma_string_t *property_name_p, /**< property name */
                                           const ecma_property_descriptor_t *property_desc_p, /**< property descriptor */
@@ -182,7 +182,7 @@ ecma_op_array_object_define_own_property (ecma_object_t *obj_p, /**< the array o
     ecma_number_t new_len_num;
 
     // c.
-    ecma_completion_value_t completion = ecma_op_to_number (property_desc_p->value);
+    ecma_value_t completion = ecma_op_to_number (property_desc_p->value);
     if (ecma_is_completion_value_throw (completion))
     {
       return completion;
@@ -211,7 +211,7 @@ ecma_op_array_object_define_own_property (ecma_object_t *obj_p, /**< the array o
       ecma_property_descriptor_t new_len_property_desc = *property_desc_p;
       new_len_property_desc.value = ecma_make_number_value (new_len_num_p);
 
-      ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+      ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
       // f.
       if (new_len_uint32 >= old_len_uint32)

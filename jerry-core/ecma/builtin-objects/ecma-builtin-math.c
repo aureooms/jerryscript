@@ -61,7 +61,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_abs (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -89,7 +89,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_acos (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -115,7 +115,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_asin (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -141,7 +141,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_atan (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -168,7 +168,7 @@ ecma_builtin_math_object_atan2 (ecma_value_t this_arg __attr_unused___, /**< 'th
                                 ecma_value_t arg1, /**< first routine's argument */
                                 ecma_value_t arg2) /**< second routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (x, arg1, ret_value);
   ECMA_OP_TO_NUMBER_TRY_CATCH (y, arg2, ret_value);
@@ -196,7 +196,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_ceil (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -221,7 +221,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_cos (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -246,7 +246,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_exp (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -274,7 +274,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_floor (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                 ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -299,7 +299,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_log (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -328,7 +328,7 @@ ecma_builtin_math_object_max (ecma_value_t this_arg __attr_unused___, /**< 'this
                               const ecma_value_t args[], /**< arguments list */
                               ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_number_t ret_num = ecma_number_make_infinity (true);
 
@@ -410,7 +410,7 @@ ecma_builtin_math_object_min (ecma_value_t this_arg __attr_unused___, /**< 'this
                               const ecma_value_t args[], /**< arguments list */
                               ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_number_t ret_num = ecma_number_make_infinity (false);
 
@@ -492,7 +492,7 @@ ecma_builtin_math_object_pow (ecma_value_t this_arg __attr_unused___, /**< 'this
                               ecma_value_t arg1, /**< first routine's argument */
                               ecma_value_t arg2) /**< second routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (x, arg1, ret_value);
   ECMA_OP_TO_NUMBER_TRY_CATCH (y, arg2, ret_value);
@@ -559,7 +559,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_round (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                 ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -613,7 +613,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_sin (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -638,7 +638,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_sqrt (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                                ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 
@@ -663,7 +663,7 @@ static ecma_completion_value_t
 ecma_builtin_math_object_tan (ecma_value_t this_arg __attr_unused___, /**< 'this' argument */
                               ecma_value_t arg) /**< routine's argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_OP_TO_NUMBER_TRY_CATCH (arg_num, arg, ret_value);
 

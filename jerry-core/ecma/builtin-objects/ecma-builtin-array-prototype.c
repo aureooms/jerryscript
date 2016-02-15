@@ -87,7 +87,7 @@ ecma_builtin_array_prototype_helper_set_length (ecma_object_t *object, /**< obje
 static ecma_completion_value_t
 ecma_builtin_array_prototype_object_to_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t return_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t return_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this_value,
@@ -137,7 +137,7 @@ ecma_builtin_array_prototype_object_to_string (ecma_value_t this_arg) /**< this 
 static ecma_completion_value_t
 ecma_builtin_array_prototype_object_to_locale_string (const ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_value,
@@ -237,7 +237,7 @@ ecma_builtin_array_prototype_object_concat (ecma_value_t this_arg, /**< this arg
                                             const ecma_value_t args[], /**< arguments list */
                                             ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -321,7 +321,7 @@ static ecma_completion_value_t
 ecma_op_array_get_to_string_at_index (ecma_object_t *obj_p, /** < this object */
                                       uint32_t index) /** < array index */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_string_t *index_string_p = ecma_new_ecma_string_from_uint32 (index);
 
   ECMA_TRY_CATCH (index_value,
@@ -359,7 +359,7 @@ static ecma_completion_value_t
 ecma_builtin_array_prototype_join (const ecma_value_t this_arg, /**< this argument */
                                    const ecma_value_t separator_arg) /** < separator argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_value,
@@ -464,7 +464,7 @@ ecma_builtin_array_prototype_join (const ecma_value_t this_arg, /**< this argume
 static ecma_completion_value_t
 ecma_builtin_array_prototype_object_pop (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -545,7 +545,7 @@ ecma_builtin_array_prototype_object_push (ecma_value_t this_arg, /**< this argum
                                           const ecma_value_t *argument_list_p, /**< arguments list */
                                           ecma_length_t arguments_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this_value, ecma_op_to_object (this_arg), ret_value);
@@ -617,7 +617,7 @@ ecma_builtin_array_prototype_object_push (ecma_value_t this_arg, /**< this argum
 static ecma_completion_value_t
 ecma_builtin_array_prototype_object_reverse (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -713,7 +713,7 @@ ecma_builtin_array_prototype_object_reverse (ecma_value_t this_arg) /**< this ar
 static ecma_completion_value_t
 ecma_builtin_array_prototype_object_shift (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -828,7 +828,7 @@ ecma_builtin_array_prototype_object_slice (ecma_value_t this_arg, /**< 'this' ar
                               ecma_value_t arg1, /**< start */
                               ecma_value_t arg2) /**< end */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -950,7 +950,7 @@ ecma_builtin_array_prototype_object_sort_compare_helper (ecma_value_t j, /**< le
    * compares greater than any other value, undefined property values always
    * sort to the end of the result, followed by non-existent property values.
    */
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_number_t *result_p = ecma_alloc_number ();
 
   bool j_is_undef = ecma_is_value_undefined (j);
@@ -1058,7 +1058,7 @@ ecma_builtin_array_prototype_object_array_to_heap_helper (ecma_value_t array[], 
                                                           int right, /**< right index is a maximum index */
                                                           ecma_value_t comparefn) /**< compare function */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* Left child of the current index. */
   int child = index * 2 + 1;
@@ -1146,7 +1146,7 @@ ecma_builtin_array_prototype_object_array_heap_sort_helper (ecma_value_t array[]
                                                             int right, /**< right index */
                                                             ecma_value_t comparefn) /**< compare function */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* First, construct the ordered binary tree from the array. */
   for (int i = right / 2; i >= 0 && ecma_is_completion_value_empty (ret_value); i--)
@@ -1203,7 +1203,7 @@ ecma_builtin_array_prototype_object_sort (ecma_value_t this_arg, /**< this argum
     return ecma_make_throw_obj_completion_value (ecma_new_standard_error (ECMA_ERROR_TYPE));
   }
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (obj_this,
                   ecma_op_to_object (this_arg),
@@ -1354,7 +1354,7 @@ ecma_builtin_array_prototype_object_splice (ecma_value_t this_arg, /**< this arg
                                           const ecma_value_t args[], /**< arguments list */
                                           ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -1643,7 +1643,7 @@ ecma_builtin_array_prototype_object_unshift (ecma_value_t this_arg, /**< this ar
                                              const ecma_value_t args[], /**< arguments list */
                                              ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -1741,7 +1741,7 @@ ecma_builtin_array_prototype_object_index_of (ecma_value_t this_arg, /**< this a
                                               ecma_value_t arg1, /**< searchElement */
                                               ecma_value_t arg2) /**< fromIndex */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -1840,7 +1840,7 @@ ecma_builtin_array_prototype_object_last_index_of (ecma_value_t this_arg, /**< t
                                                    const ecma_value_t args[], /**< arguments list */
                                                    ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_value_t search_element = (args_number > 0) ? args[0] : ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED);
 
   /* 1. */
@@ -1991,7 +1991,7 @@ ecma_builtin_array_prototype_object_every (ecma_value_t this_arg, /**< this argu
                                            ecma_value_t arg1, /**< callbackfn */
                                            ecma_value_t arg2) /**< thisArg */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -2092,7 +2092,7 @@ ecma_builtin_array_prototype_object_some (ecma_value_t this_arg, /**< this argum
                                           ecma_value_t arg1, /**< callbackfn */
                                           ecma_value_t arg2) /**< thisArg */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -2193,7 +2193,7 @@ ecma_builtin_array_prototype_object_for_each (ecma_value_t this_arg, /**< this a
                                               ecma_value_t arg1, /**< callbackfn */
                                               ecma_value_t arg2) /**< thisArg */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
                   ecma_op_to_object (this_arg),
@@ -2287,7 +2287,7 @@ ecma_builtin_array_prototype_object_map (ecma_value_t this_arg, /**< this argume
                                          ecma_value_t arg1, /**< callbackfn */
                                          ecma_value_t arg2) /**< thisArg */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -2401,7 +2401,7 @@ ecma_builtin_array_prototype_object_filter (ecma_value_t this_arg, /**< this arg
                                             ecma_value_t arg1, /**< callbackfn */
                                             ecma_value_t arg2) /**< thisArg */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj_this,
@@ -2524,7 +2524,7 @@ ecma_builtin_array_prototype_object_reduce (ecma_value_t this_arg, /**< this arg
                                             const ecma_value_t args[], /**< arguments list */
                                             ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_value_t callbackfn = (args_number > 0) ? args[0] : ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED);
   ecma_value_t initial_value = (args_number > 1) ? args[1] : ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED);
 
@@ -2669,7 +2669,7 @@ ecma_builtin_array_prototype_object_reduce_right (ecma_value_t this_arg, /**< th
                                                   const ecma_value_t args[], /**< arguments list */
                                                   ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_value_t callbackfn = (args_number > 0) ? args[0] : ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED);
   ecma_value_t initial_value = (args_number > 1) ? args[1] : ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED);
 

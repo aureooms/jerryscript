@@ -55,7 +55,7 @@
 static ecma_completion_value_t
 ecma_builtin_date_prototype_to_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (prim_value,
                   ecma_date_get_primitive_value (this_arg),
@@ -90,7 +90,7 @@ ecma_builtin_date_prototype_to_string (ecma_value_t this_arg) /**< this argument
 static ecma_completion_value_t
 ecma_builtin_date_prototype_to_date_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (this_arg)
       || ecma_object_get_class_name (ecma_get_object_from_value (this_arg)) != LIT_MAGIC_STRING_DATE_UL)
@@ -137,7 +137,7 @@ ecma_builtin_date_prototype_to_date_string (ecma_value_t this_arg) /**< this arg
 static ecma_completion_value_t
 ecma_builtin_date_prototype_to_time_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (this_arg)
       || ecma_object_get_class_name (ecma_get_object_from_value (this_arg)) != LIT_MAGIC_STRING_DATE_UL)
@@ -287,7 +287,7 @@ ecma_builtin_date_prototype_get_time (ecma_value_t this_arg) /**< this argument 
 static ecma_completion_value_t \
 ecma_builtin_date_prototype_get_ ## _routine_name (ecma_value_t this_arg) /**< this argument */ \
 { \
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value (); \
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY); \
  \
   /* 1. */ \
   ECMA_TRY_CATCH (value, ecma_builtin_date_prototype_get_time (this_arg), ret_value); \
@@ -345,7 +345,7 @@ static ecma_completion_value_t
 ecma_builtin_date_prototype_set_time (ecma_value_t this_arg, /**< this argument */
                                       ecma_value_t time) /**< time */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (this_arg)
       || ecma_object_get_class_name (ecma_get_object_from_value (this_arg)) != LIT_MAGIC_STRING_DATE_UL)
@@ -390,7 +390,7 @@ static ecma_completion_value_t
 ecma_builtin_date_prototype_set_milliseconds (ecma_value_t this_arg, /**< this argument */
                                               ecma_value_t ms) /**< millisecond */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -427,7 +427,7 @@ static ecma_completion_value_t
 ecma_builtin_date_prototype_set_utc_milliseconds (ecma_value_t this_arg, /**< this argument */
                                                   ecma_value_t ms) /**< millisecond */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -465,7 +465,7 @@ ecma_builtin_date_prototype_set_seconds (ecma_value_t this_arg, /**< this argume
                                          ecma_value_t sec, /**< second */
                                          ecma_value_t ms) /**< millisecond */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -510,7 +510,7 @@ ecma_builtin_date_prototype_set_utc_seconds (ecma_value_t this_arg, /**< this ar
                                              ecma_value_t sec, /**< second */
                                              ecma_value_t ms) /**< millisecond */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -555,7 +555,7 @@ ecma_builtin_date_prototype_set_minutes (ecma_value_t this_arg, /**< this argume
                                          const ecma_value_t args[], /**< arguments list */
                                          ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -616,7 +616,7 @@ ecma_builtin_date_prototype_set_utc_minutes (ecma_value_t this_arg, /**< this ar
                                              const ecma_value_t args[], /**< arguments list */
                                              ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -677,7 +677,7 @@ ecma_builtin_date_prototype_set_hours (ecma_value_t this_arg, /**< this argument
                                        const ecma_value_t args[], /**< arguments list */
                                        ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -746,7 +746,7 @@ ecma_builtin_date_prototype_set_utc_hours (ecma_value_t this_arg, /**< this argu
                                            const ecma_value_t args[], /**< arguments list */
                                            ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -814,7 +814,7 @@ static ecma_completion_value_t
 ecma_builtin_date_prototype_set_date (ecma_value_t this_arg, /**< this argument */
                                       ecma_value_t date) /**< date */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -850,7 +850,7 @@ static ecma_completion_value_t
 ecma_builtin_date_prototype_set_utc_date (ecma_value_t this_arg, /**< this argument */
                                           ecma_value_t date) /**< date */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -887,7 +887,7 @@ ecma_builtin_date_prototype_set_month (ecma_value_t this_arg, /**< this argument
                                        ecma_value_t month, /**< month */
                                        ecma_value_t date) /**< date */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -931,7 +931,7 @@ ecma_builtin_date_prototype_set_utc_month (ecma_value_t this_arg, /**< this argu
                                            ecma_value_t month, /**< month */
                                            ecma_value_t date) /**< date */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -975,7 +975,7 @@ ecma_builtin_date_prototype_set_full_year (ecma_value_t this_arg, /**< this argu
                                            const ecma_value_t args[], /**< arguments list */
                                            ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -1039,7 +1039,7 @@ ecma_builtin_date_prototype_set_utc_full_year (ecma_value_t this_arg, /**< this 
                                                const ecma_value_t args[], /**< arguments list */
                                                ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -1101,7 +1101,7 @@ ecma_builtin_date_prototype_set_utc_full_year (ecma_value_t this_arg, /**< this 
 static ecma_completion_value_t
 ecma_builtin_date_prototype_to_utc_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (prim_value,
                   ecma_date_get_primitive_value (this_arg),
@@ -1136,7 +1136,7 @@ ecma_builtin_date_prototype_to_utc_string (ecma_value_t this_arg) /**< this argu
 static ecma_completion_value_t
 ecma_builtin_date_prototype_to_iso_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (prim_value,
                   ecma_date_get_primitive_value (this_arg),
@@ -1171,7 +1171,7 @@ static ecma_completion_value_t
 ecma_builtin_date_prototype_to_json (ecma_value_t this_arg, /**< this argument */
                                      ecma_value_t arg __attr_unused___) /**< key */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (obj,
@@ -1241,7 +1241,7 @@ ecma_builtin_date_prototype_to_json (ecma_value_t this_arg, /**< this argument *
 static ecma_completion_value_t
 ecma_builtin_date_prototype_get_year (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);
@@ -1277,7 +1277,7 @@ static ecma_completion_value_t
 ecma_builtin_date_prototype_set_year (ecma_value_t this_arg, /**< this argument */
                                       ecma_value_t year) /**< year argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   ECMA_TRY_CATCH (this_time_value, ecma_builtin_date_prototype_get_time (this_arg), ret_value);

@@ -105,7 +105,7 @@ ecma_op_get_value_object_base (ecma_reference_t ref) /**< ECMA-reference */
   else
   {
     // 4.b case 2
-    ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+    ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
     // 1.
     ECMA_TRY_CATCH (obj_base, ecma_op_to_object (base), ret_value);
@@ -193,7 +193,7 @@ ecma_op_put_value_lex_env_base (ecma_object_t *ref_base_lex_env_p, /**< referenc
       JERRY_ASSERT (ecma_is_completion_value_normal_true (completion)
                     || ecma_is_completion_value_normal_false (completion));
 
-      return ecma_make_empty_completion_value ();
+      return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
     }
   }
 
@@ -223,7 +223,7 @@ ecma_reject_put (bool is_throw) /**< Throw flag */
   }
   else
   {
-    return ecma_make_empty_completion_value ();
+    return ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   }
 } /* ecma_reject_put */
 
@@ -260,7 +260,7 @@ ecma_op_put_value_object_base (ecma_reference_t ref, /**< ECMA-reference */
     JERRY_ASSERT (obj_p != NULL
                   && !ecma_is_lexical_environment (obj_p));
 
-    ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+    ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
     ECMA_TRY_CATCH (put_ret_value,
                     ecma_op_object_put (obj_p,
@@ -270,7 +270,7 @@ ecma_op_put_value_object_base (ecma_reference_t ref, /**< ECMA-reference */
                                         ref.is_strict),
                     ret_value);
 
-    ret_value = ecma_make_empty_completion_value ();
+    ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
     ECMA_FINALIZE (put_ret_value);
 
@@ -279,7 +279,7 @@ ecma_op_put_value_object_base (ecma_reference_t ref, /**< ECMA-reference */
   else
   {
     // 4.b case 2
-    ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+    ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
     // sub_1.
     ECMA_TRY_CATCH (obj_base, ecma_op_to_object (base), ret_value);
@@ -324,7 +324,7 @@ ecma_op_put_value_object_base (ecma_reference_t ref, /**< ECMA-reference */
                         ecma_op_function_call (setter_p, base, &value, 1),
                         ret_value);
 
-        ret_value = ecma_make_empty_completion_value ();
+        ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
         ECMA_FINALIZE (call_ret);
       }

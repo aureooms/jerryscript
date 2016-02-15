@@ -41,7 +41,7 @@ ecma_completion_value_t
 opfunc_less_than (ecma_value_t left_value, /**< left value */
                   ecma_value_t right_value) /**< right value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (compare_result,
                   ecma_op_abstract_relational_compare (left_value, right_value, true),
@@ -79,7 +79,7 @@ ecma_completion_value_t
 opfunc_greater_than (ecma_value_t left_value, /**< left value */
                      ecma_value_t right_value) /**< right value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (compare_result,
                   ecma_op_abstract_relational_compare (right_value, left_value, false),
@@ -117,7 +117,7 @@ ecma_completion_value_t
 opfunc_less_or_equal_than (ecma_value_t left_value, /**< left value */
                            ecma_value_t right_value) /**< right value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (compare_result,
                   ecma_op_abstract_relational_compare (right_value, left_value, false),
@@ -162,7 +162,7 @@ ecma_completion_value_t
 opfunc_greater_or_equal_than (ecma_value_t left_value, /**< left value */
                               ecma_value_t right_value) /**< right value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (compare_result,
                   ecma_op_abstract_relational_compare (left_value, right_value, true),
@@ -207,7 +207,7 @@ ecma_completion_value_t
 opfunc_instanceof (ecma_value_t left_value, /**< left value */
                    ecma_value_t right_value) /**< right value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (right_value))
   {
@@ -241,7 +241,7 @@ ecma_completion_value_t
 opfunc_in (ecma_value_t left_value, /**< left value */
            ecma_value_t right_value) /**< right value */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_is_value_object (right_value))
   {

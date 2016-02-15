@@ -513,7 +513,7 @@ ecma_builtin_dispatch_call (ecma_object_t *obj_p, /**< built-in object */
 {
   JERRY_ASSERT (ecma_get_object_is_builtin (obj_p));
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (ecma_get_object_type (obj_p) == ECMA_OBJECT_TYPE_BUILT_IN_FUNCTION)
   {
@@ -603,7 +603,7 @@ ecma_builtin_dispatch_construct (ecma_object_t *obj_p, /**< built-in object */
   JERRY_ASSERT (ecma_get_object_type (obj_p) == ECMA_OBJECT_TYPE_FUNCTION);
   JERRY_ASSERT (ecma_get_object_is_builtin (obj_p));
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_property_t *built_in_id_prop_p = ecma_get_internal_property (obj_p,
                                                                     ECMA_INTERNAL_PROPERTY_BUILT_IN_ID);

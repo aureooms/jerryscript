@@ -59,7 +59,7 @@ ecma_op_abstract_equality_compare (ecma_value_t x, /**< first operand */
                                || (is_x_string && is_y_string)
                                || (is_x_object && is_y_object));
 
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (is_types_equal)
   {
@@ -333,7 +333,7 @@ ecma_op_abstract_relational_compare (ecma_value_t x, /**< first operand */
                                      ecma_value_t y, /**< second operand */
                                      bool left_first) /**< 'LeftFirst' flag */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ecma_value_t first_converted_value = left_first ? x : y;
   ecma_value_t second_converted_value = left_first ? y : x;

@@ -79,7 +79,7 @@ static ecma_completion_value_t
 ecma_date_construct_helper (const ecma_value_t *args, /**< arguments passed to the Date constructor */
                             ecma_length_t args_len) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_number_t *prim_value_p = ecma_alloc_number ();
   *prim_value_p = ecma_number_make_nan ();
 
@@ -189,7 +189,7 @@ static ecma_completion_value_t
 ecma_builtin_date_parse (ecma_value_t this_arg __attr_unused___, /**< this argument */
                          ecma_value_t arg) /**< string */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_number_t *date_num_p = ecma_alloc_number ();
   *date_num_p = ecma_number_make_nan ();
 
@@ -411,7 +411,7 @@ ecma_builtin_date_utc (ecma_value_t this_arg __attr_unused___, /**< this argumen
                        const ecma_value_t args[], /**< arguments list */
                        ecma_length_t args_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (args_number < 2)
   {
@@ -470,7 +470,7 @@ ecma_completion_value_t
 ecma_builtin_date_dispatch_call (const ecma_value_t *arguments_list_p __attr_unused___, /**< arguments list */
                                  ecma_length_t arguments_list_len __attr_unused___) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   ECMA_TRY_CATCH (now_val,
                   ecma_builtin_date_now (ecma_make_simple_value (ECMA_SIMPLE_VALUE_UNDEFINED)),
@@ -495,7 +495,7 @@ ecma_completion_value_t
 ecma_builtin_date_dispatch_construct (const ecma_value_t *arguments_list_p, /**< arguments list */
                                       ecma_length_t arguments_list_len) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
   ecma_number_t *prim_value_num_p = NULL;
 
   ecma_object_t *prototype_obj_p = ecma_builtin_get (ECMA_BUILTIN_ID_DATE_PROTOTYPE);

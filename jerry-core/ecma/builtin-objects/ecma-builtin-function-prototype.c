@@ -56,7 +56,7 @@
 static ecma_completion_value_t
 ecma_builtin_function_prototype_object_to_string (ecma_value_t this_arg) /**< this argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   if (!ecma_op_is_callable (this_arg))
   {
@@ -84,7 +84,7 @@ ecma_builtin_function_prototype_object_apply (ecma_value_t this_arg, /**< this a
                                               ecma_value_t arg1, /**< first argument */
                                               ecma_value_t arg2) /**< second argument */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 1. */
   if (!ecma_op_is_callable (this_arg))
@@ -226,7 +226,7 @@ ecma_builtin_function_prototype_object_bind (ecma_value_t this_arg, /**< this ar
                                              const ecma_value_t *arguments_list_p, /**< list of arguments */
                                              ecma_length_t arguments_number) /**< number of arguments */
 {
-  ecma_completion_value_t ret_value = ecma_make_empty_completion_value ();
+  ecma_completion_value_t ret_value = ecma_make_simple_value (ECMA_SIMPLE_VALUE_EMPTY);
 
   /* 2. */
   if (!ecma_op_is_callable (this_arg))

@@ -1809,7 +1809,7 @@ lexer_construct_regexp_object (parser_context_t *context_p, /**< context */
 
   /* Compile the RegExp literal and store the RegExp bytecode pointer */
   re_compiled_code_t *re_bytecode_p = NULL;
-  ecma_completion_value_t completion_value;
+  ecma_value_t completion_value;
 
   ecma_string_t *pattern_str_p = ecma_new_ecma_string_from_utf8 (regex_start_p, length);
   // FIXME: check return value of 're_compile_bytecode' and throw an error
