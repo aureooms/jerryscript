@@ -9,7 +9,7 @@ JerryScript is the lightweight JavaScript engine for very constrained devices su
 - Only few kilobytes of RAM available to the engine (&lt;64 KB RAM)
 - Constrained ROM space for the code of the engine (&lt;200 KB ROM)
 
-Additional informantion can be found on our [project page](http://samsung.github.io/jerryscript/) and  [wiki](https://github.com/Samsung/jerryscript/wiki).
+Additional information can be found on our [project page](http://samsung.github.io/jerryscript/) and  [wiki](https://github.com/Samsung/jerryscript/wiki).
 
 ## Quick Start
 ### Getting Sources
